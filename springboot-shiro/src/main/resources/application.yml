@@ -1,0 +1,22 @@
+spring:
+    datasource:
+      url: jdbc:mysql://10.110.94.219:4002/shiro?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=UTC
+      username: mms_test_w
+      password: 9AF3DB07D90DF7Ct
+      driver-class-name: com.mysql.jdbc.Driver
+
+    jpa:
+      database: mysql
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+        naming:
+          physical-strategy:
+            strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
+      properties:
+         hibernate:
+            dialect: org.hibernate.dialect.MySQL5Dialect
+
+    thymeleaf:
+       cache: false
+       mode: LEGACYHTML5
