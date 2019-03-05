@@ -30,7 +30,7 @@ public class CasClientDemoApplication {
 
 
 	/**
-	 * description: 登录过滤器
+	 * description: 登录过滤器(登出操作时清除session)
 	 * @param: []
 	 * @return: org.springframework.boot.web.servlet.FilterRegistrationBean
 	 */
@@ -111,7 +111,7 @@ public class CasClientDemoApplication {
 	}
 
 	/**
-	 * 添加监听器
+	 * 添加监听器（监听session的销毁）
 	 * @return
 	 */
 	@Bean
