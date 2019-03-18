@@ -1,0 +1,10 @@
+server:
+  port: 8084
+
+#cas
+cas:
+  client-name: mfgClient
+  server:
+    url: https://cas.example.org:8443/cas
+  project:
+    url: http://cas.client.com:${server.port}
