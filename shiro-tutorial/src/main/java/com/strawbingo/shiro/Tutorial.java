@@ -23,6 +23,7 @@ public class Tutorial {
         log.info("My First Apache Shiro Application");
         System.out.println("My First Apache Shiro Application");
 
+        /***********************************************配置引用****************************************************************************/
         //1.
         Factory<SecurityManager> factory = new IniSecurityManagerFactory("classpath:shiro.ini");
 
@@ -31,6 +32,8 @@ public class Tutorial {
 
         //3.
         SecurityUtils.setSecurityManager(securityManager);
+
+        /************************************************使用Shiro***************************************************************************/
 
         Subject currentUser = SecurityUtils.getSubject();
 
@@ -85,6 +88,7 @@ public class Tutorial {
             log.info("Sorry, you aren't allowed to drive the 'eagle5' winnebago!");
         }
 
+        /************************************************退出***************************************************************************/
         //all done - log out!
         currentUser.logout(); //removes all identifying information and invalidates their session too.
 
