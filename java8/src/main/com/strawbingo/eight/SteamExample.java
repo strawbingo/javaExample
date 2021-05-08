@@ -1,7 +1,6 @@
 package com.strawbingo.eight;
 
 import com.strawbingo.eight.model.SnapshotMetadata;
-import javafx.print.Collation;
 import org.assertj.core.util.Lists;
 
 import java.util.ArrayList;
