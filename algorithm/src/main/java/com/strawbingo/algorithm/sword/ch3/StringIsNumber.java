@@ -44,7 +44,7 @@ public class StringIsNumber {
     }
 
     private boolean isPositiveNumber(String s) {
-        System.out.println("isPositiveNumber"+s);
+//        System.out.println("isPositiveNumber"+s);
 
 
         for(int i=0; i <s.length();i++){
@@ -55,16 +55,16 @@ public class StringIsNumber {
             catch (Exception e){
                 return false;
             }
-            System.out.println("isPositiveNumber"+i1);
+//            System.out.println("isPositiveNumber"+i1);
 //            System.out.println(i1+ "="+s.charAt(i));
-            if(i1<0 || i1> 9)
+            if(s.charAt(i)<'0'|| s.charAt(i)> '9')
                 return false;
         }
         return true;
     }
 
     private boolean isNumberWithDot(String s) {
-        System.out.println("isNumberWithDot"+s);
+//        System.out.println("isNumberWithDot"+s);
         if(s.charAt(0) == '+' || s.charAt(0)=='-'){
             s = s.substring(1);
         }
@@ -73,7 +73,7 @@ public class StringIsNumber {
             int eIndex =  s.indexOf('.');
             String s1 = s.substring(0,eIndex);
             String s2 = s.substring(eIndex+1);
-            System.out.println(s1+"=s1s2="+s2);
+//            System.out.println(s1+"=s1s2="+s2);
             if(s1.length()==0 && s2.length() ==0) return false;
             return ((s1.length()>0)?isPositiveNumber(s1):true) &&
                     isPositiveNumber(s2);
