@@ -27,7 +27,7 @@ public class DeleteNodeTest {
      * 4 5 1 9
      */
     @Test
-    public void deleteNode() {
+    public void testDeleteNode() {
         DeleteNode deleteNode = new DeleteNode();
         head = new ListNode(4);
         head = deleteNode.deleteNode(head,4);
@@ -69,5 +69,37 @@ public class DeleteNodeTest {
         Assert.assertEquals(1, head.getNext().getNext().getVal());
         Assert.assertNull( head.getNext().getNext().getNext());
 
+    }
+
+    private void setupDupListNode(){
+        this.head = new ListNode(4);
+
+        ListNode node5 = new ListNode(5);
+        head.setNext(node5);
+        ListNode node5d = new ListNode(5);
+        node5.setNext(node5d);
+        ListNode node1 = new ListNode(1);
+        node5.setNext(node1);
+        ListNode node9 = new ListNode(9);
+        node1.setNext(node9);
+        ListNode node9d = new ListNode(9);
+        node9.setNext(node9d);
+
+    }
+
+    /**
+     *删除链表中重复的节点。在一个排序的链表中，如何删除重复的节点？
+     */
+    @Test
+    public void testDeleteDuplicateNode() {
+        DeleteNode deleteNode = new DeleteNode();
+        setupDupListNode();
+        head = deleteNode.deleteDuplicateNode(head);
+
+        Assert.assertEquals(4, head.getVal());
+        Assert.assertEquals(5, head.getNext().getVal());
+        Assert.assertEquals(1, head.getNext().getNext().getVal());
+        Assert.assertEquals(9, head.getNext().getNext().getNext().getVal());
+        Assert.assertNull( head.getNext().getNext().getNext().getNext());
     }
 }
