@@ -46,4 +46,28 @@ public class DeleteNode {
         return head;
     }
 
+    /**
+     * 删除链表中重复的节点。在一个排序的链表中，如何删除重复的节点？
+     * @param head
+     * @return
+     */
+    public ListNode deleteDuplicateNode(ListNode head) {
+        ListNode curr = head;
+
+        if (head == null) {
+            return null;
+        }
+
+        while(curr!= null && curr.getNext()!=null){
+            //curr equals next , delete next
+            if(curr.getVal() == curr.getNext().getVal()){
+                curr.setNext(curr.getNext().getNext());
+            }
+            else {
+                curr = curr.getNext();
+            }
+        }
+
+        return head;
+    }
 }

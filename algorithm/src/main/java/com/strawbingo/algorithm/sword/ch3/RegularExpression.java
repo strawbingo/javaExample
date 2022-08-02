@@ -1,5 +1,8 @@
 package com.strawbingo.algorithm.sword.ch3;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 /**
  * 题19：正则表达式匹配
  * 请实现一个函数用来匹配包含'.'和'*'的正则表达式。模式中的字符'.'表示任意一个字符，
@@ -18,77 +21,86 @@ public class RegularExpression {
      * @return
      */
     public boolean isMatch(String s, String p) {
-        boolean isMach = true;
-        //"aaa","a.a"
-        String pattenCharPre = "";
-        String patterCharCurr = p.substring(0,1);
+//        System.out.println(s+"---------" +p);
+       int m = s.length();
+       int n = p.length();
 
-        for (int i=1; i<= p.length(); i++) {
-            pattenCharPre = patterCharCurr;
-            patterCharCurr= i == p.length()?"":p.substring(i,i+1);
-            System.out.println(pattenCharPre+":"+patterCharCurr);
-            System.out.println(s);
-            System.out.println("==============");
+       boolean[][] f = new boolean[m+1][n+1];
+       f[0][0] = true;
+       for(int i=0; i<= m ; ++i){
+           for(int j=1; j<= n; ++j){
+//               System.out.println(i+"====ij==="+j);
+               if(p.charAt(j-1) == '*'){
+                   f[i][j] = f[i][j-2];
+                   if(matches(s,p,i,j-1)){
+                       f[i][j] = f[i-1][j] || f[i][j] ;
+                   }
+               }
+               //pj is not *
+               else {
 
-//            if(patterCharCurr.equals(point)){
-//                System.out.println("match pattenCharPre");
-//                s = s.substring(1);
-//                continue;
-//            }
+                   if(matches(s,p,i,j)){
+                       f[i][j] = f[i-1][j-1];
+                   }
+               }
+           }
+       }
 
-            if(patterCharCurr.equals(star)){
-                // 0 or more pattenCharPre
-                System.out.println("patterCharCurr is * ,match more");
-                while(s.length()>=1 && (pattenCharPre.equals(point)||
-                        s.substring(0,1).equals(pattenCharPre))){
-                    s = s.substring(1);
-                }
-                continue;
-            }
-
-            if(pattenCharPre.equals("") || star.equals(pattenCharPre) ){
-                continue;
-            }
-
-            if (point.equals(pattenCharPre)){
-                System.out.println("match pattenCharPre");
-                if(s.length()>0) {
-                    s = s.substring(1);
-                }
-//                else {
-//                    isMach = false;
-//                    break;
-//                }
-                continue;
-            }
-
-            //if patterCharCurr is not * or .,means patterCharCurr is alphabet
-            // compare
-            // patterCharCurr have char but s is null
-            // pattenCharPre not equals first letter
-            // patterCharCurr is null
-            if( (s.length()==0 && patterCharCurr!=null) ||
-                    !pattenCharPre.equals(s.substring(0,1))
-                ){
-                System.out.println("pattenCharPre="+pattenCharPre+":s="+s);
-                isMach = false;
-                break;
-            }
-            else {
-                System.out.println("match letter");
-//                if(patterCharCurr.isEmpty()) {
-                    s = s.substring(1);
-//                }
-            }
-
-
-        }
-        System.out.println("final s="+s);
-        if(s.length()>0){
-            isMach = false;
-        }
-
-        return isMach;
+//       Stream.of(f).forEach(t -> System.out.println(Arrays.toString(t)));
+//       System.out.println(f[m][n]);
+       return f[m][n];
     }
 
+    private boolean matches(String s, String p, int i, int j) {
+       if(i == 0 ){
+           return false;
+       }
+
+        if(p.charAt(j-1) == '.'){
+            return true;
+        }
+
+        return s.charAt(i - 1) == p.charAt(j - 1);
+    }
+
+    public boolean isMatch2(String s, String p) {
+//        if(s.length()==0){
+//            return false;
+//        }
+
+        return matchCore(s,p);
+
+    }
+
+    public boolean matchCore(String s, String p){
+//        System.out.println(s+"---------" +p);
+        if(p.length()>=2 && p.charAt(1) == '*'){
+            if(s.length()>0 && (p.charAt(0) == '.' || s.charAt(0) == p.charAt(0)) ) {
+                return matchCore(s, p.substring(2)) || matchCore(s.substring(1),p)
+                        || matchCore(s.substring(1),p.substring(2));
+            }
+            else {
+                return matchCore(s,p.substring(2));
+            }
+        }
+        else if(s.length()> 0 && p.length()> 0 ){
+
+            if(s.length() == 0) return false;
+
+            if(s.charAt(0) == p.charAt(0) || p.charAt(0) == '.'){
+                return matchCore(s.substring(1),p.substring(1));
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            if(s.length()==p.length()) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
 }
