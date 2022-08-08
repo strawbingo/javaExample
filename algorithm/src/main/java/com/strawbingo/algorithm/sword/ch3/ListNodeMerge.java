@@ -2,68 +2,50 @@ package com.strawbingo.algorithm.sword.ch3;
 
 import com.strawbingo.algorithm.sword.ListNode;
 
+/**
+ * 题25：合并两个排序的链表
+ * 输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的
+ */
 public class ListNodeMerge {
 
     public ListNode mergeTwoLists(ListNode nodeA1, ListNode nodeB1) {
-        ListNode head = null;
-        ListNode curr = null;
+        ListNode preHead = new ListNode(-1);
+        ListNode curr = preHead;
 
-        if(nodeA1 == null){
+        //all  not null
+        while (nodeA1!=null && nodeB1 != null){
+//            System.out.println(nodeA1.getVal()+"=="+nodeB1.getVal());
+            if(nodeA1.getVal() <= nodeB1.getVal()){
+                curr.setNext(nodeA1);
+                curr = curr.getNext();
+                nodeA1 = nodeA1.getNext();
+            }
+            else {
+                curr.setNext(nodeB1);
+                curr = curr.getNext();
+                nodeB1 = nodeB1.getNext();
+            }
+        }
+
+        curr.setNext(nodeA1==null?nodeB1:nodeA1);
+
+        return preHead.getNext();
+    }
+
+    public ListNode mergeTwoListsRecursion(ListNode nodeA1, ListNode nodeB1) {
+
+        if(nodeA1==null){
+            return nodeB1;
+        }else if(nodeB1 == null){
+            return nodeA1;
+        }else  if(nodeA1.getVal()<=nodeB1.getVal()){
+             nodeA1.setNext(mergeTwoListsRecursion(nodeA1.getNext(),nodeB1));
+             return nodeA1;
+        }
+        else {
+            nodeB1.setNext(mergeTwoListsRecursion(nodeA1,nodeB1.getNext()));
             return nodeB1;
         }
 
-        while (nodeA1!=null || nodeB1 !=null){
-
-            //all  not null
-            if(nodeA1!=null && nodeB1 != null){
-                System.out.println(nodeA1.getVal()+"=="+nodeB1.getVal());
-                if(nodeA1.getVal() <= nodeB1.getVal()){
-                    if(head == null) {
-                        head = nodeA1;
-                        curr = head;
-                    }
-                    else {
-                        curr.setNext(nodeA1);
-                        curr = curr.getNext();
-                    }
-                    nodeA1 = nodeA1.getNext();
-                }
-                else {
-                    if(head == null) {
-                        head = nodeB1;
-                        curr = head;
-                    }
-                    else {
-                        curr.setNext(nodeB1);
-                        curr = curr.getNext();
-                    }
-                    nodeB1 = nodeB1.getNext();
-                }
-
-
-            }else if(nodeA1 != null){
-                if(curr != null) {
-                    curr.setNext(nodeA1);
-                }
-                else {
-                    head = nodeA1;
-                }
-                break;
-            }
-            else {
-                if (curr != null) {
-                    curr.setNext(nodeB1);
-                }
-                else {
-                    head = nodeB1;
-                }
-                break;
-            }
-
-
-        }
-
-        return head;
     }
-
 }
