@@ -40,4 +40,18 @@ public class TreeNodeSymmetricTest {
         Assert.assertFalse(treeNodeSymmetric.isSymmetric(root));
 
     }
+
+    @Test
+    public void testIsSymmetricLoop(){
+        TreeNodeSymmetric treeNodeSymmetric = new TreeNodeSymmetric();
+        TreeNode root = setUpParentTree();
+        Assert.assertTrue(treeNodeSymmetric.isSymmetricLoop(root));
+
+        Assert.assertTrue(treeNodeSymmetric.isSymmetricLoop(null));
+
+        root.getLeftNode().setLeftNode(new TreeNode(5));
+        Assert.assertFalse(treeNodeSymmetric.isSymmetricLoop(root));
+
+    }
+
 }
