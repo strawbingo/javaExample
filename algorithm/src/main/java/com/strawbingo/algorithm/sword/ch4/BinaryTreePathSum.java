@@ -23,7 +23,7 @@ public class BinaryTreePathSum {
         if(root == null) {
             return;
         }
-        int value = root.getValue();
+        int value = root.getVal();
         intList.add(value);
         //if == target ,add to result;
 

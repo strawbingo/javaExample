@@ -27,7 +27,7 @@ public class TreeNodeSymmetric {
             return true;
         }
 
-        if (left.getValue() == right.getValue()) {
+        if (left.getVal() == right.getVal()) {
             return isSymmetric(left.getLeftNode(),right.getRightNode()) &&
                     isSymmetric(left.getRightNode(),right.getLeftNode());
         }else {
@@ -72,6 +72,6 @@ public class TreeNodeSymmetric {
     }
 
     private boolean isMatch(TreeNode left, TreeNode right) {
-        return left.getValue() == right.getValue();
+        return left.getVal() == right.getVal();
     }
 }

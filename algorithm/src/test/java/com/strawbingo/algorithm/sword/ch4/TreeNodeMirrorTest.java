@@ -38,7 +38,7 @@ public class TreeNodeMirrorTest {
         TreeNodeMirror treeNodeMirror = new  TreeNodeMirror();
         TreeNode root = setUpParentTree();
         root = treeNodeMirror.mirrorTree(root);
-        Assert.assertEquals(5,root.getLeftNode().getValue());
+        Assert.assertEquals(5,root.getLeftNode().getVal());
     }
 
 

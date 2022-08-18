@@ -27,7 +27,7 @@ public class BinaryTreePrint {
         while (!que.isEmpty()){
             TreeNode node = que.poll();
             if(node !=null) {
-                arr.add(node.getValue());
+                arr.add(node.getVal());
                 que.add(node.getLeftNode());
                 que.add(node.getRightNode());
             }
@@ -58,7 +58,7 @@ public class BinaryTreePrint {
         List<Integer> inner = new ArrayList<>();
         while (!que.isEmpty()){
             TreeNode node = que.poll();
-            inner.add(node.getValue());
+            inner.add(node.getVal());
             if(node.getLeftNode()!= null) queTmp.add(node.getLeftNode());
             if(node.getRightNode() !=null) queTmp.add(node.getRightNode());
 
@@ -96,9 +96,9 @@ public class BinaryTreePrint {
             for(int i=0; i<forSize; i++){
                 TreeNode node = que.poll();
                 if(z){
-                    inner.addLast(node.getValue());
+                    inner.addLast(node.getVal());
                 }else {
-                    inner.addFirst(node.getValue());
+                    inner.addFirst(node.getVal());
                 }
                 if(node.getLeftNode() != null) que.add(node.getLeftNode());
                 if(node.getRightNode() != null)  que.add(node.getRightNode());
