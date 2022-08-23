@@ -73,6 +73,15 @@ public class MajorityElement {
         return res;
     }
 
+    /**
+     * 在看剑指offer里的partition代码时，有些卡，这里注解一下。
+     * https://blog.csdn.net/paoxungan5156/article/details/104566645
+     * @param nums
+     * @param length
+     * @param start
+     * @param end
+     * @return
+     */
     private int partionDemo(int[] nums, int length, int start, int end) {
 
         int small = start-1;
