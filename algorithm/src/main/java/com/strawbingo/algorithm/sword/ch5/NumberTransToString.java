@@ -28,4 +28,32 @@ public class NumberTransToString {
 
     }
 
+    /**
+     * dp[i] = dp [i-1]
+     * @param num
+     * @return
+     */
+    public int translateNumDP(int num) {
+        String numStr = String.valueOf(num);
+        char[] chars = numStr.toCharArray();
+        int len = chars.length;
+        int[] dp = new int[len];
+        dp[0] = 1;
+
+        for (int i = 1; i < len; i++) {
+            dp[i] = dp[i-1];
+            int cur = (chars[i-1]-'0') * 10 + chars[i]-'0';
+            if(cur > 9 && cur < 26){
+                if(i <= 1){
+                    dp[i]++;
+                }else {
+                    dp[i] += dp[i - 2];
+                }
+            }
+        }
+
+        return dp[len-1];
+
+    }
+
 }

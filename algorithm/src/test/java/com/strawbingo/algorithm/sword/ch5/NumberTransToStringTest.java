@@ -14,10 +14,16 @@ public class NumberTransToStringTest {
     @Test
     public void testTranslateNum(){
         NumberTransToString numberTransToString = new NumberTransToString();
-//        Assert.assertEquals(1,numberTransToString.translateNum(1));
-//        Assert.assertEquals(5,numberTransToString.translateNum(12258));
-//        Assert.assertEquals(2,numberTransToString.translateNum(23));
-//        Assert.assertEquals(1,numberTransToString.translateNum(506));
+        Assert.assertEquals(1,numberTransToString.translateNum(1));
+        Assert.assertEquals(5,numberTransToString.translateNum(12258));
+        Assert.assertEquals(2,numberTransToString.translateNum(23));
+        Assert.assertEquals(1,numberTransToString.translateNum(506));
         Assert.assertEquals(12,numberTransToString.translateNum(1250156147));
+
+        Assert.assertEquals(1,numberTransToString.translateNumDP(1));
+        Assert.assertEquals(5,numberTransToString.translateNumDP(12258));
+        Assert.assertEquals(2,numberTransToString.translateNumDP(23));
+        Assert.assertEquals(1,numberTransToString.translateNumDP(506));
+        Assert.assertEquals(12,numberTransToString.translateNumDP(1250156147));
     }
 }
