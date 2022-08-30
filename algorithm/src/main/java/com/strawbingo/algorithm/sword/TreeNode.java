@@ -2,33 +2,33 @@ package com.strawbingo.algorithm.sword;
 
 public class TreeNode {
 
-    private int value;
-    private TreeNode leftNode;
-    private TreeNode rightNode;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
     private TreeNode parentNode;
 
-    public TreeNode(int value){
-        this.value = value;
+    public TreeNode(int val){
+        this.val = val;
     }
 
-    public int getValue(){
-        return this.value;
+    public int getVal(){
+        return this.val;
     }
 
     public void setLeftNode(TreeNode leffNode){
-        this.leftNode = leffNode;
+        this.left = leffNode;
     }
 
     public TreeNode getLeftNode(){
-        return this.leftNode;
+        return this.left;
     }
 
     public void setRightNode(TreeNode rightNode){
-        this.rightNode = rightNode;
+        this.right = rightNode;
     }
 
     public TreeNode getRightNode(){
-        return this.rightNode;
+        return this.right;
     }
 
     public void setParentNode(TreeNode parentNode){
