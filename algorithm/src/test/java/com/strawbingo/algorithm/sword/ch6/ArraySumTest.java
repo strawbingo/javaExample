@@ -42,5 +42,7 @@ public class ArraySumTest {
         int[][] expectRes = {{2,3,4},{4,5}};
         Assert.assertArrayEquals(expectRes,arraySum.findContinuousSequence(9));
 
+        Assert.assertArrayEquals(expectRes,arraySum.findContinuousSequence2(9));
+
     }
 }

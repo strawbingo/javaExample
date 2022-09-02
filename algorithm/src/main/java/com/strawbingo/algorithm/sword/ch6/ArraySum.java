@@ -83,4 +83,44 @@ public class ArraySum {
 
         return list.toArray(new int[list.size()][]);
     }
+
+    /**
+     * 题目二：和为s的连续正数序列
+     * 输入一个正数s，打印出所有和为s的连续正数序列（至少含有两个数）。
+     * 例如，输入15，由于1+2+3+4+5=4+5+6=7+8=15,所以打印出3个连续序列
+     */
+    public int[][] findContinuousSequence2(int target) {
+        int left = 1;
+        int sum = 0;
+        List<int[]> list = new ArrayList<>();
+        for(int i=2; i<target && left<i;){
+//            System.out.println(left+":"+i);
+            sum = (left+i)* (i-left+1)/2;
+
+            if(sum == target){
+                int[] nums = new int[i-left+1];
+                for (int j = 0; j <i-left+1 ; j++) {
+                    nums[j] = left+j;
+                }
+                list.add(nums);
+//                System.out.println(left+":"+i);
+//                System.out.println(Arrays.toString(nums));
+                i++;
+            }else if(sum > target){
+                left++;
+            }
+            else {
+                i++;
+            }
+
+        }
+
+
+//        int[][] res = new int[list.size()][];
+//        for (int i = 0; i < list.size(); i++) {
+//            res[i] = list.get(i);
+//        }
+
+        return list.toArray(new int[list.size()][]);
+    }
 }
