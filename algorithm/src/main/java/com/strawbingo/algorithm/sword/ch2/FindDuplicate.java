@@ -2,82 +2,93 @@ package com.strawbingo.algorithm.sword.ch2;
 
 
 /**
- * 题3：数组中重复数字（长度n，数字在0~n-1之间）
- * 在一个长度为n+1的数组里的所有数字都在1到n的范围内，所以数组中至少有一个数字是重复的。请找出数组中任意一个重复的数字，
- *  但不能修改输入的数组。例如，如果输入长度为8的数组{2, 3, 5, 4, 3, 2, 6, 7}，那么对应的输出是重复的数字2或者3。
+ * 题3：找出数组中重复的数字
  */
 public class FindDuplicate {
 
     /**
+     * 题目1：在一个长度为n数组里所有的数字都在0~n-1的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，
+     * 也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。
+     * 例如，输入长度为7的数组{2,3,1,0,2,5,3}，对应输出的重复数字是2或者3
      * 重排数组（下标与数值比较）
      * @param nums
      * @return
      */
     public int findDuplicateReOrder(int[] nums){
-        int res = -1;
-
-        for(int i=0; i<nums.length; i++){
-//            System.out.println("nums[i] = "+nums[i]);
-            if(nums[i]!= i){
-//                System.out.println("nums[i] != "+i);
-                if(nums[i] == nums[nums[i]]){
-                    res =  nums[i];
-                    break;
-                }
-
-                int tmp = nums[i];
-                nums[i] = nums[nums[i]];
-                nums[tmp] = tmp;
+        int ans = -1;
+        //reorder array with it's index;
+        int i = 0;
+        while ( i < nums.length) {
+            if(i == nums[i]){
+                i++;
+                continue;
             }
 
-            if(res > 0){
+            if(nums[nums[i]] == nums[i]) {
+                ans = nums[i];
                 break;
+            }
+            else {
+                int temp = nums[nums[i]];
+                nums[nums[i]] = nums[i];
+                nums[i] = temp;
             }
         }
 
-        return res;
+        return ans;
     }
 
 
     /**
      * 扩展：不修改数组找出重复的数字
-     * @param arraySrc
+     *
+     * 按照二分查找的思路，将 1~n 的数字从中间的数字 m 分为两部分，前面一半为 1~m，后面一半为 (m+1)~n。
+     *
+     * 如果 1~m 的数字的数目大于 m，那么这一半的区间一定包含重复的数字；否则，另一半 (m+1)~n 的区间里一定包含重复的数字。
+     *
+     * 我们可以继续把包含重复数字的区间继续二分，直到找到一个重复的数字。
+     * @param nums
      * @return
      */
-    public int findDuplicateBinarySearch(int[] arraySrc){
+    public int findDuplicateBinarySearch(int[] nums){
+        int ans = -1;
+        //binary count
+
         int left = 1;
-        int right = arraySrc.length;
-
-        int mid = 0 ;
-        int count;
-
+        int right = nums.length;
+        // count number between left and right
         while (left < right){
-            mid = (left + right)/2 ;
-            count = 0 ;
 
-            System.out.println(left+":"+mid+":"+right);
-
-            for(int i=0; i< arraySrc.length; i++){
-                if(arraySrc[i]>=left && arraySrc[i] <= mid){
+            int mid = (left + right)/2;
+//            System.out.println(left+":"+right+":"+mid);
+            int count = 0;
+            for (int i = 0; i < nums.length; i++) {
+                if(nums[i]>=left && nums[i]<=mid){
                     count++;
                 }
             }
-
-            if(left+count > mid+1){
+            //if count > left+mid then right = mid
+//            System.out.println(count+":"+(left+mid));
+//            if(left+ count > mid +1){
+            if(count > (mid - left + 1)){
                 right = mid;
-            }
-            else {
+            }else {
                 left = mid+1;
             }
         }
 
-        if (left == right){
-            return left;
+        if(left == right){
+            ans = left;
         }
-
-        return -1;
+       return ans;
     }
 
+    /**
+     * 快慢指针（Fast-Slow Pointer）求解数组中的重复数字
+     * https://blog.csdn.net/SoftPoeter/article/details/103153564
+     * @param arraySrc
+     * @return
+     */
     public int findDuplicateLinkLoop(int[] arraySrc){
 
         int slow = 0;
