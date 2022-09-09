@@ -3,6 +3,10 @@ package com.strawbingo.algorithm.sword.ch2;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * 题4：二维数组中的查找
+ * 在一个二维数组，每一行从左到右递增，每一列从上到下递增。输入一个二维数组和一个整数，判断数组是否包含该整数
+ */
 public class FindNumFrom2dArrayTest {
 
     int[][] source = {{1,2, 8, 9},
