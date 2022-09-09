@@ -7,35 +7,27 @@ package com.strawbingo.algorithm.sword.ch2;
 public class FindNumFrom2dArray {
 
 
-    public static boolean findNum(int[][] arr, int num) {
+    public static boolean findNum(int[][] matrix, int target) {
         boolean isFind = false;
+        if(matrix == null || matrix.length ==0) return isFind;
 
-        int row = arr[0].length;
-        int col = arr.length;
 
-        if(arr == null ){
-            return isFind;
-        }
-
-        int curRow = 0;
-        int curCol = col-1;
-        //if> row ,col return false
-        while (curRow>=0 && curRow < row && curCol>= 0 && curCol < col) {
-//            System.out.println("Find Num"+num+","+curRow+":"+curCol);
-            //if == return
-            if(num == arr[curRow][curCol]){
+        for (int j = matrix[0].length-1; j >=0 ; j--) {
+            if(matrix[0][j] == target) {
                 isFind = true;
                 break;
-            //if < row -1
-            }else if(num < arr[curRow][curCol]){
-                curCol--;
             }
-            //if > col +1
-            else if(num > arr[curRow][curCol]){
-                curRow++;
-            }
-        }
+            else if (matrix[0][j] < target){
+                for (int i = 0; i < matrix.length; i++) {
+                    if(matrix[i][j] == target){
+                        isFind = true;
+                        break;
+                    }
+                }
 
+            }
+
+        }
 
         return isFind;
     }
