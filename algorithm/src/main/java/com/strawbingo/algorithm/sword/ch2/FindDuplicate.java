@@ -1,27 +1,33 @@
 package com.strawbingo.algorithm.sword.ch2;
 
 
-//数组重复数字
-//在一个长度为n+1的数组里的所有数字都在1到n的范围内，所以数组中至少有一个数字是重复的。请找出数组中任意一个重复的数字，
-// 但不能修改输入的数组。例如，如果输入长度为8的数组{2, 3, 5, 4, 3, 2, 6, 7}，那么对应的输出是重复的数字2或者3。
-
+/**
+ * 题3：数组中重复数字（长度n，数字在0~n-1之间）
+ * 在一个长度为n+1的数组里的所有数字都在1到n的范围内，所以数组中至少有一个数字是重复的。请找出数组中任意一个重复的数字，
+ *  但不能修改输入的数组。例如，如果输入长度为8的数组{2, 3, 5, 4, 3, 2, 6, 7}，那么对应的输出是重复的数字2或者3。
+ */
 public class FindDuplicate {
 
-    public int findDuplicateReOrder(int[] arraySrc){
+    /**
+     * 重排数组（下标与数值比较）
+     * @param nums
+     * @return
+     */
+    public int findDuplicateReOrder(int[] nums){
         int res = -1;
 
-        for(int i=0; i<arraySrc.length; i++){
-//            System.out.println("arraySrc[i] = "+arraySrc[i]);
-            if(arraySrc[i]!= i){
-//                System.out.println("arraySrc[i] != "+i);
-                if(arraySrc[i] == arraySrc[arraySrc[i]]){
-                    res =  arraySrc[i];
+        for(int i=0; i<nums.length; i++){
+//            System.out.println("nums[i] = "+nums[i]);
+            if(nums[i]!= i){
+//                System.out.println("nums[i] != "+i);
+                if(nums[i] == nums[nums[i]]){
+                    res =  nums[i];
                     break;
                 }
 
-                int tmp = arraySrc[i];
-                arraySrc[i] = arraySrc[arraySrc[i]];
-                arraySrc[tmp] = tmp;
+                int tmp = nums[i];
+                nums[i] = nums[nums[i]];
+                nums[tmp] = tmp;
             }
 
             if(res > 0){
@@ -33,6 +39,11 @@ public class FindDuplicate {
     }
 
 
+    /**
+     * 扩展：不修改数组找出重复的数字
+     * @param arraySrc
+     * @return
+     */
     public int findDuplicateBinarySearch(int[] arraySrc){
         int left = 1;
         int right = arraySrc.length;
