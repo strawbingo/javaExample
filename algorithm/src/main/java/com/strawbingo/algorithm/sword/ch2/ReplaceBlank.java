@@ -1,7 +1,8 @@
 package com.strawbingo.algorithm.sword.ch2;
 
 /**
- * 实现一个函数，把一个字符串中的空格替换成20%，或是其他字符
+ * 题5：替换空格
+ * 请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
  */
 public class ReplaceBlank {
 
@@ -38,7 +39,7 @@ public class ReplaceBlank {
         return result;
     }
 
-    public static char[] replaceWithInOldArray(char[] source, char oldChar, char[] newCharArr, int endSize) {
+    public char[] replaceWithInOldArray(char[] source, char oldChar, char[] newCharArr, int endSize) {
 
         //check param
 
@@ -59,6 +60,25 @@ public class ReplaceBlank {
         System.out.println(source);
 
         return source;
+    }
+
+
+    public  String replaceSpace(String s) {
+        String newStr = "%20";
+//        int countSpace = 0;
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < s.length(); i++) {
+            if(s.charAt(i) == ' '){
+                sb.append(newStr);
+            }
+            else {
+                sb.append(s.charAt(i));
+            }
+        }
+
+        return sb.toString();
+
     }
 
 
