@@ -13,7 +13,7 @@ public class NextNodeOfBinaryTreeTest {
      *    9    11
      */
     @Test
-    public void testRebuild(){
+    public void testGetNext(){
 
         TreeNode root = new TreeNode(3);
         TreeNode node2 = new TreeNode(2);
@@ -42,9 +42,9 @@ public class NextNodeOfBinaryTreeTest {
         node4.setParentNode(node8);
 
 
-        Assert.assertEquals(9, NextNodeOfBinaryTree.getNext(node2).getValue());
-        Assert.assertEquals(10, NextNodeOfBinaryTree.getNext(node9).getValue());
-        Assert.assertEquals(3, NextNodeOfBinaryTree.getNext(node11).getValue());
+        Assert.assertEquals(9, NextNodeOfBinaryTree.getNext(node2).getVal());
+        Assert.assertEquals(10, NextNodeOfBinaryTree.getNext(node9).getVal());
+        Assert.assertEquals(3, NextNodeOfBinaryTree.getNext(node11).getVal());
         Assert.assertNull( NextNodeOfBinaryTree.getNext(node4));
 
     }

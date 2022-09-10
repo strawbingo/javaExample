@@ -38,9 +38,9 @@ public class NextNodeOfBinaryTree {
                 //if curr is right node,the next is the first left node's parent
                 else {
                     while (currNode.getParentNode() != null && currNode == currNode.getParentNode().getRightNode()) {
-//                      System.out.println(currNode.getValue());
+//                      System.out.println(currNode.getVal());
                         currNode = currNode.getParentNode();
-//                        System.out.println("return:"+result.getValue());
+//                        System.out.println("return:"+result.getVal());
                     }
                     result = currNode.getParentNode();
 
