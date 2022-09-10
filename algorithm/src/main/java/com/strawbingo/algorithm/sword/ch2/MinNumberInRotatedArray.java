@@ -5,6 +5,11 @@ import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 
+/**
+ * 题11：旋转数组的最小数字。
+ * 把一个数字最开始的若干个元素搬到数组的末尾，我们称之为旋转数组。
+ * 输入一个递增排序数组的一个旋转，输出旋转数组的最小元素。
+ */
 public class MinNumberInRotatedArray {
 
     public static String getMinNumber(String oldString) {
@@ -74,6 +79,12 @@ public class MinNumberInRotatedArray {
 
     }
 
+    /**
+     * 遍历 O(n)
+     * @param left
+     * @param arr
+     * @return
+     */
     private static int getMinNumInOrder(int left, int[] arr) {
         int res = 0;
         for(int i = left;i < arr.length-1; i++){
@@ -83,5 +94,37 @@ public class MinNumberInRotatedArray {
             }
         }
         return res;
+    }
+
+    /**
+     * leetCode
+     */
+    public int minArray(int[] nums) {
+        if(nums.length ==0){
+            return -1;
+        }
+        if(nums.length==1){
+            return nums[0];
+        }
+        int left = 0;
+        int right = nums.length-1;
+
+
+        while (left < right){
+//            System.out.println(left +":"+right);
+            int mid = left +(right -left)/2;
+
+
+            if(nums[mid]> nums[right]){
+                left = mid+1;
+            }else if(nums[right]> nums[mid]){
+                right = mid;
+            }else if(nums[mid] == nums[right]){
+                    right = right -1;
+            }
+        }
+
+        return nums[left];
+        
     }
 }
