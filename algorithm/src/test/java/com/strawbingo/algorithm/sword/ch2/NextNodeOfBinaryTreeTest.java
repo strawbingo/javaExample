@@ -4,6 +4,11 @@ import com.strawbingo.algorithm.sword.TreeNode;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * 题8：二叉树的下一个节点
+ * 给定一颗二叉树和其中一个节点，找出中序遍历的下一个节点。
+ * 树中节点除了指向左右子节点的指针，还有指向父节点的指针
+ */
 public class NextNodeOfBinaryTreeTest {
 
     /**
@@ -14,6 +19,7 @@ public class NextNodeOfBinaryTreeTest {
      */
     @Test
     public void testGetNext(){
+        NextNodeOfBinaryTree nextNodeOfBinaryTree = new NextNodeOfBinaryTree();
 
         TreeNode root = new TreeNode(3);
         TreeNode node2 = new TreeNode(2);
@@ -42,10 +48,10 @@ public class NextNodeOfBinaryTreeTest {
         node4.setParentNode(node8);
 
 
-        Assert.assertEquals(9, NextNodeOfBinaryTree.getNext(node2).getVal());
-        Assert.assertEquals(10, NextNodeOfBinaryTree.getNext(node9).getVal());
-        Assert.assertEquals(3, NextNodeOfBinaryTree.getNext(node11).getVal());
-        Assert.assertNull( NextNodeOfBinaryTree.getNext(node4));
+        Assert.assertEquals(9, nextNodeOfBinaryTree.getNext(node2).getVal());
+        Assert.assertEquals(10, nextNodeOfBinaryTree.getNext(node9).getVal());
+        Assert.assertEquals(3, nextNodeOfBinaryTree.getNext(node11).getVal());
+        Assert.assertNull( nextNodeOfBinaryTree.getNext(node4));
 
     }
 
