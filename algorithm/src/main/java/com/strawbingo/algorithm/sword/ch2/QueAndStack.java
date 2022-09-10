@@ -1,5 +1,6 @@
 package com.strawbingo.algorithm.sword.ch2;
 
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -37,6 +38,29 @@ public class QueAndStack {
             return outStack.pop();
         }
 
+    }
+
+    /**
+     * 扩展：用队列实现一个栈
+     */
+    LinkedList<Integer> myList = new LinkedList();
+
+
+    public void push(int x) {
+        myList.add(x);
+    }
+
+    public int pop() {
+        return myList.pollLast();
+    }
+
+    public int top() {
+        return myList.peekLast();
+    }
+
+    public boolean empty() {
+
+        return myList.isEmpty();
     }
 
 }

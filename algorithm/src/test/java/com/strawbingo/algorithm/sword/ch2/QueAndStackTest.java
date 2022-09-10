@@ -22,5 +22,20 @@ public class QueAndStackTest {
         Assert.assertEquals(1, queAndStack.deleteHead());
     }
 
+    /**
+     * 扩展：用两个队列实现一个栈
+     */
+    @Test
+    public void testStackByQueue(){
+        QueAndStack queAndStack = new QueAndStack();
+        Assert.assertEquals(true,queAndStack.empty());
+        queAndStack.push(1);
+        queAndStack.push(2);
+        Assert.assertEquals(false,queAndStack.empty());
+        Assert.assertEquals(2,queAndStack.top());
+        Assert.assertEquals(2,queAndStack.pop());
+        Assert.assertEquals(1,queAndStack.pop());
+        Assert.assertEquals(true,queAndStack.empty());
+    }
 
 }
