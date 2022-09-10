@@ -78,5 +78,52 @@ public class FibonacciNumber {
         }
         return result;
     }
+
+    /**
+     * 题10：斐波那契数列：
+     * 题1，求菲波那切数列的第n项
+     * LeetCode
+     * @param n
+     * @return
+     */
+    public int fib(int n) {
+        if(n==0) return 0;
+        if(n==1) return 1;
+        int f0 = 0;
+        int f1 = 1;
+        int fn=0;
+
+        while (n>1){
+            fn=f0+f1;
+            f0 = f1;
+            f1 = fn;
+
+            n--;
+        }
+
+        return fn;
+
+    }
+
+    /**
+     * 题目二：青蛙跳台阶问题。一只青蛙一次可以跳1一级台阶，也可以跳上2级台阶。求跳上n级台阶有多少种跳法
+     * LeetCode
+     */
+    public int numWays(int n) {
+        if (n == 0) return 1;
+        if (n == 1) return 1;
+        int f0 = 1;
+        int f1 = 1;
+        int mod = 1000000007;
+        int fn = 0;
+
+        for (int i = 2; i <= n ; i++) {
+            fn = (f0+f1)%mod;
+            f0 =f1;
+            f1 = fn;
+
+        }
+        return fn;
+    }
 }
 
