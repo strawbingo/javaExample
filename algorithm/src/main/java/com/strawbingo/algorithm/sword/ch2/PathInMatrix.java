@@ -9,7 +9,9 @@ package com.strawbingo.algorithm.sword.ch2;
 
 public class PathInMatrix {
 
+    //wrong method
     public static boolean hasPath(char[][] source, char[] des) {
+
         int rows = source.length;
         int cols = source[0].length;
 
@@ -50,4 +52,96 @@ public class PathInMatrix {
 
     }
 
+    /**
+     * leetCode
+     */
+    public boolean exist(char[][] source, String word) {
+        if(source == null || word == null) return false;
+
+        int row = source.length;
+        int col = source[0].length;
+//        int i=0;
+//        int j=0;
+        int index = 0;
+
+        boolean match = false;
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+//                System.out.println(i+":"+j);
+                boolean[][] flag = new boolean[row][col];
+                boolean ans = exist(source,word,row,col,i,j,index,flag);
+                if(ans == true) return true;
+            }
+
+        }
+
+//        return exist(source,word,row,col,i,j,index,flag,match);
+
+        return false;
+    }
+
+    private boolean exist(char[][] source, String word, int row, int col, int i, int j, int index,boolean[][] flag) {
+        System.out.println("index:"+index+":i="+i+":j="+j);
+        if(index == word.length()) {
+            System.out.println("no more word:"+index+":i="+i+":j="+j);
+            return true;
+        }
+        if(i==row || j == col || i<0 || j<0) {
+            System.out.println("false:::::i="+i+":j="+j);
+            return false;
+        }
+
+
+        if(flag[i][j] == true || (source[i][j] != word.charAt(index))){
+            System.out.println("not match:"+source[i][j]+":i="+i+":j="+j);
+            return false;
+        }else{
+            System.out.println("match:"+source[i][j]+":i="+i+":j="+j);
+            flag[i][j] = true;
+            index = index+1;
+            boolean match =  exist(source,word,row,col,i+1,j,index,flag) ||
+                    exist(source,word,row,col,i,j+1,index,flag) ||
+                    exist(source,word,row,col,i-1,j,index,flag) ||
+                    exist(source,word,row,col,i,j-1,index,flag);
+            if(!match)  flag[i][j] = false;
+            return match;
+        }
+
+
+    }
+
+    private boolean exist(char[][] source, String word, int row, int col, int i, int j, int index,boolean[][] flag,boolean match) {
+        System.out.println("index:"+index+":i="+i+":j="+j+":match="+match);
+        if(index == word.length()) {
+            System.out.println("no more word:"+index+":i="+i+":j="+j);
+            return true;
+        }
+
+        if(i==row || j == col || i<0 || j<0) {
+            System.out.println("false:::::i="+i+":j="+j);
+            return false;
+        }
+
+        if(flag[i][j] == true){
+            System.out.println("accessed i="+i+":j="+j);
+            return false;
+        }
+        if(match && (source[i][j] != word.charAt(index))){
+            System.out.println("not match:"+source[i][j]+":i="+i+":j="+j);
+            return false;
+        }
+        if(source[i][j] == word.charAt(index) ){
+            System.out.println("match:"+source[i][j]+":i="+i+":j="+j);
+            flag[i][j] = true;
+            match = true;
+            index = index+1;
+        }
+
+
+        return exist(source,word,row,col,i+1,j,index,flag,match) ||
+                exist(source,word,row,col,i,j+1,index,flag,match) ||
+                exist(source,word,row,col,i-1,j,index,flag,match) ||
+                exist(source,word,row,col,i,j-1,index,flag,match);
+    }
 }
