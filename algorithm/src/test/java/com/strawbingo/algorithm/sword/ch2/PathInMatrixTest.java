@@ -34,5 +34,38 @@ public class PathInMatrixTest {
         Assert.assertEquals(true, PathInMatrix.hasPath(source,des3));
     }
 
+    /**
+     * leetCode
+     */
+    @Test
+    public void testExist(){
+        PathInMatrix pathInMatrix = new PathInMatrix();
+//        String word = "accf";
+//        Assert.assertEquals(false,pathInMatrix.exist(source,word));
+//
+//        String word2 = "bfde";
+//        Assert.assertEquals(true,pathInMatrix.exist(source,word2));
+//
+//        String word3 = "bccee";
+//        Assert.assertEquals(true,pathInMatrix.exist(source,word3));
+//
+//        char[][] source2 = {{'a'}};
+//        String word4 = "a";
+//        Assert.assertEquals(true,pathInMatrix.exist(source2,word4));
+
+        // c a a
+        // a a a
+        // b c d
+//         char[][] source3 = {{'C','A','A'},{'A','A','A'},{'B','C','D'}};
+//        String word5 =  "AAB";
+//        Assert.assertEquals(true,pathInMatrix.exist(source3,word5));
+
+        char[][] source4 = {{'A','B','C','E'},
+                            {'S','F','E','S'},
+                            {'A','D','E','E'}};
+        String word6 = "ABCESEEEFS";
+        Assert.assertEquals(true,pathInMatrix.exist(source4,word6));
+    }
+
 
 }
