@@ -20,4 +20,23 @@ public class HammingWeight {
         return count;
     }
 
+    public int hammingWeight2(int n) {
+        Integer.bitCount(n);
+        int count= 0;
+        while (n!=0){
+            count++;
+
+            n = n & (n-1);
+        }
+        return count;
+    }
+
+    /**
+     * 一条语句判断整数是不是2的n次方
+     * @param n
+     * @return
+     */
+    public boolean is2N(int n) {
+        return n!=1 && (n & (n-1)) == 0;
+    }
 }

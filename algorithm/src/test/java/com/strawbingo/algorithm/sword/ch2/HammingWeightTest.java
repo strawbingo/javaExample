@@ -10,10 +10,29 @@ import org.junit.Test;
 public class HammingWeightTest {
 
     @Test
-    public void hammingWeight(){
+    public void testHammingWeight(){
         HammingWeight hammingWeight = new HammingWeight();
         Assert.assertEquals(3, hammingWeight.hammingWeight(11));
         Assert.assertEquals(1, hammingWeight.hammingWeight(128));
         Assert.assertEquals(31, hammingWeight.hammingWeight(-3));
+
+
+        Assert.assertEquals(3, hammingWeight.hammingWeight2(11));
+        Assert.assertEquals(1, hammingWeight.hammingWeight2(128));
+        Assert.assertEquals(31, hammingWeight.hammingWeight2(-3));
+    }
+
+    /**
+     * 一条语句判断整数是不是2的n次方
+     */
+    @Test
+    public void testIs2N(){
+        HammingWeight hammingWeight = new HammingWeight();
+        Assert.assertFalse(hammingWeight.is2N(1));
+        Assert.assertTrue(hammingWeight.is2N(2));
+        Assert.assertFalse(hammingWeight.is2N(3));
+        Assert.assertTrue(hammingWeight.is2N(8));
+        Assert.assertTrue(hammingWeight.is2N(1024));
+
     }
 }
