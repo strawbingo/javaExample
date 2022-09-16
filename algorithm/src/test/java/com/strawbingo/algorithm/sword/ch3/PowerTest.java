@@ -17,7 +17,7 @@ import org.junit.Test;
 public class PowerTest {
 
     @Test
-    public void powerTest(){
+    public void testPower(){
 
         Assert.assertEquals(1d,Power.power(1d,6),0.000001);
         Assert.assertEquals(8d,Power.power(2d,3),0.000001);
@@ -42,7 +42,7 @@ public class PowerTest {
     }
 
     @Test
-    public void powerEnhanceTest(){
+    public void testPowerEnhance(){
 
         Assert.assertEquals(1d,Power.powerEnhance(1d,6),0.000001);
         Assert.assertEquals(8d,Power.powerEnhance(2d,3),0.000001);
@@ -65,6 +65,33 @@ public class PowerTest {
 
         Assert.assertEquals(1d,Power.powerEnhance(1d,-2147483648),0.000001);
         Assert.assertEquals(0d,Power.powerEnhance(2d,-2147483648),0.000001);
+
+
+    }
+
+    @Test
+    public void testMyPower(){
+        Power power = new Power();
+        Assert.assertEquals(1d,power.myPow(1d,6),0.000001);
+        Assert.assertEquals(8d,power.myPow(2d,3),0.000001);
+        Assert.assertEquals(1024d,power.myPow(2d,10),0.000001);
+        Assert.assertEquals(0.25d,power.myPow(2d,-2),0.000001);
+        Assert.assertEquals(0.125d,power.myPow(2d,-3),0.000001);
+        Assert.assertEquals(1d,power.myPow(2d,0),0.000001);
+
+//        Assert.assertEquals(0.01d,power.myPow(0.1d,2),0.000001);
+
+        Assert.assertEquals(1d,power.myPow(0d,0),0.000001);
+        Assert.assertTrue(Double.isInfinite(power.myPow(0d,-2)));
+        Assert.assertEquals(0d,power.myPow(0d,2),0.000001);
+
+        Assert.assertEquals(1d,power.myPow(-1d,2),0.000001);
+        Assert.assertEquals(-8d,power.myPow(-2d,3),0.000001);
+        Assert.assertEquals(1d,power.myPow(-2d,0),0.000001);
+        Assert.assertEquals(0.25d,power.myPow(-2d,-2),0.000001);
+        Assert.assertEquals(-0.125d,power.myPow(-2d,-3),0.000001);
+
+        Assert.assertEquals(0d,power.myPow(-2d, -2147483648),0.000001);
 
 
     }

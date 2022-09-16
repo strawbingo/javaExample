@@ -84,4 +84,22 @@ public class Power {
         return result;
     }
 
+    public double myPow(double base, int exponent){
+        long n = exponent;
+
+        double ans = n>0?quickMul(base,n):quickMul(base,-n);
+
+        return n>0? ans : 1/ans;
+
+    }
+
+    private double quickMul(double base, long exponent) {
+        if(exponent == 0) return 1;
+        if(exponent == 1) return base;
+
+        double y = quickMul(base,exponent/2);
+
+        return exponent%2 ==1 ? y*y*base: y*y;
+    }
+
 }
