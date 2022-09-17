@@ -2,47 +2,28 @@ package com.strawbingo.algorithm.sword.ch3;
 
 import com.strawbingo.algorithm.sword.ListNode;
 
+/**
+ * 题18：删除链表的节点
+ */
 public class DeleteNode {
 
-    public ListNode deleteNode(ListNode head, int i) {
-        ListNode curr = head;
-
-        if (head == null) {
-            return null;
-        }
-
-        //如果删除的是头结点
-        if (head.getVal() == i) {
-            return head.getNext();
-        }
+    /**
+     * 在O(1)时间内删除链表节点。给定单向链表的头指针和一个节点指针，定义一个函数在O(1)时间内删除该节点
+     * 4 5 1 9
+     */
+    public ListNode deleteNode(ListNode head, int val) {
+        if(head.val  == val) return head.next;
+        ListNode pre = head;
+        ListNode curr = head.next;
 
         while(curr != null){
-
-            if (curr.getNext().getVal() !=i){
-                curr = curr.getNext();
+            if(curr.val == val){
+                pre.next = curr.next;
+                break;
             }
-            //if next.val is the target
-            else {
-                //my code
-                //if next.next is not end node
-//                if(curr.getNext().getNext() != null) {
-////                    curr.getNext().setVal(curr.getNext().getNext().getVal());
-//                    curr.setNext(curr.getNext().getNext());
-//                }
-//                else {
-//                    curr.setNext( null);
-//                }
-
-                // no2
-                if(curr.getNext() != null){
-                    curr.setNext(curr.getNext().getNext());
-                }
-
-                return head;
-            }
-
+            pre = curr;
+            curr = curr.next;
         }
-
         return head;
     }
 
@@ -52,20 +33,18 @@ public class DeleteNode {
      * @return
      */
     public ListNode deleteDuplicateNode(ListNode head) {
-        ListNode curr = head;
 
         if (head == null) {
             return null;
         }
 
-        while(curr!= null && curr.getNext()!=null){
-            //curr equals next , delete next
-            if(curr.getVal() == curr.getNext().getVal()){
-                curr.setNext(curr.getNext().getNext());
+        ListNode curr = head;
+        while (curr!= null && curr.next != null){
+            if(curr.val == curr.next.val){
+                curr.next = curr.next.next;
+                continue;
             }
-            else {
-                curr = curr.getNext();
-            }
+            curr = curr.next;
         }
 
         return head;

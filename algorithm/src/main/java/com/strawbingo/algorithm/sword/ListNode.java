@@ -2,9 +2,9 @@ package com.strawbingo.algorithm.sword;
 
 public class ListNode {
 
-    int val;
+    public int val;
 
-    private ListNode next;
+    public ListNode next;
 
     public ListNode(int x) {
         val = x;

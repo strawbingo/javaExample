@@ -88,7 +88,7 @@ public class DeleteNodeTest {
     }
 
     /**
-     *删除链表中重复的节点。在一个排序的链表中，如何删除重复的节点？
+     * 删除链表中重复的节点。在一个排序的链表中，如何删除重复的节点？
      */
     @Test
     public void testDeleteDuplicateNode() {
@@ -101,5 +101,17 @@ public class DeleteNodeTest {
         Assert.assertEquals(1, head.getNext().getNext().getVal());
         Assert.assertEquals(9, head.getNext().getNext().getNext().getVal());
         Assert.assertNull( head.getNext().getNext().getNext().getNext());
+
+        ListNode head = new ListNode(1);
+        ListNode node2 = new ListNode(1);
+        ListNode node3 = new ListNode(1);
+        ListNode node4 = new ListNode(2);
+        ListNode node5 = new ListNode(2);
+        head.next = node2;
+        node2.next= node3;
+        node3.next = node4;
+        node4.next = node5;
+        deleteNode.deleteDuplicateNode(head);
+        Assert.assertEquals(2,head.next.val);
     }
 }
