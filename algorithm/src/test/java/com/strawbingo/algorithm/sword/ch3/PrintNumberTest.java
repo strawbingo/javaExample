@@ -24,7 +24,6 @@ public class PrintNumberTest {
         Assert.assertEquals(1,nums[0]);
         Assert.assertEquals(999,nums[nums.length-1]);
 
-        nums = printNumber.printNumber(4);
 
         nums = printNumber.printNumber(5);
         Assert.assertEquals(99999,nums.length);

@@ -1,45 +1,48 @@
 package com.strawbingo.algorithm.sword.ch3;
 
+import java.util.ArrayList;
+
 /**
  * 题17：打印从1到最大的n位数
  * 输入数字n，按顺序打印出从1到最大的n位十进制数。比如输入3，则打印出1、2、3一直到最大的3位数999
  */
 public class PrintNumber {
 
-    StringBuilder res;
 
-    int[] result;
-    char[] num,loop = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-    int count =0,n;
-    public int[] printNumber(int i) {
-        count =0;
-        this.n = i;
-        num = new char[i];
-        result = new int[(int) Math.pow(10,i)-1];
+    public int[] printNumber(int n) {
+//        int[] nums = {1,2,3,4,5,6,7,8,9,0};
 
-//        System.out.println(result.length);
-        dfs(0);
+        ArrayList<Integer> list = new ArrayList<>();
+//        dfs(n,nums,list);
+//        ArrayList<String> list = new ArrayList<>();
 
 
-        return result;
+
+
+        for (int i = 0; i < 10; i++) {
+            dfs(n-1,i+"",list);
+        }
+        int[] ans = new int[list.size()-1];
+//        list.stream().forEach(item ->System.out.println(item));
+        for (int i = 0; i <list.size()-1; i++) {
+            ans[i] = list.get(i+1);
+        }
+
+        return ans;
     }
 
-    private void dfs(int i) {
-        if(i == n) {
-//            System.out.println(num);
-            if(Integer.parseInt(String.valueOf(num))>0) {
-                result[count++] = Integer.parseInt(String.valueOf(num));
-            }
+
+    private void dfs(int n,String iNum, ArrayList<Integer> list) {
+        if(n==0){
+//            list.add(iNum);
+            list.add(Integer.parseInt(iNum));
             return;
         }
 
-        for (char tmp: loop) {
-//            System.out.println(i+":"+tmp);
-            num[i] = tmp;
-//            result[count++] = Integer.parseInt(nums.toString());
-//            System.out.println(num);
-            dfs(i+1);
+        for (int i = 0; i < 10; i++) {
+            dfs(n-1,iNum+i,list);
         }
+
 
     }
 
