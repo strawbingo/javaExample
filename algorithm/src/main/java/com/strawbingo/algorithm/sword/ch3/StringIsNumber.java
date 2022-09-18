@@ -78,9 +78,9 @@ public class StringIsNumber {
         char[] chars = s.toCharArray();
         for (char c:
              chars) {
-            int num = (int)c-(int)'0';
+//            int num = (int)c-(int)'0';
 //            System.out.println("num="+num);
-            if(num < 0 || num > 9){
+            if(c < '0' || c > '9'){
 //                System.out.println("return false");
                 return false;
             }
