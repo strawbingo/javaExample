@@ -1,6 +1,7 @@
 package com.strawbingo.algorithm.sword.ch3;
 
 import com.strawbingo.algorithm.sword.ListNode;
+import com.strawbingo.algorithm.sword.ch4.LinkNodeCopy;
 
 import java.util.Stack;
 
@@ -27,21 +28,16 @@ public class ListNodeKthFromEnd {
     }
 
     public ListNode getKthFromEndFastSlowPoint(ListNode head, int k) {
-
-        ListNode slow = head;
         ListNode fast = head;
+        ListNode slow = head;
 
-        while(k>0 ){
-            if(fast==null){
-                return null;
-            }
-            fast=fast.getNext();
-            k--;
+        for (int i = 0; i < k; i++) {
+            if(fast == null) return null;
+            fast = fast.next;
         }
-
-        while(fast != null){
-            fast = fast.getNext();
-            slow = slow.getNext();
+        while (fast!=null){
+            fast = fast.next;
+            slow = slow.next;
         }
 
         return slow;
