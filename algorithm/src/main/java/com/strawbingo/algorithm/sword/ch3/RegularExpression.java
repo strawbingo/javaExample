@@ -16,75 +16,40 @@ public class RegularExpression {
     private char point = '.';
 
     public boolean isMatch(String s, String p) {
-        //get pre char and curr char
-        return  dfs(s,p);
+        int m  = s.length();
+        int n = p.length();
 
-    }
+        //f[i][j]  if p[j] != * : f[i-1][j-1], if match (s[i] , p[j])
+        //                              false, otherwise
+        // otherwise  p[j] == * : f[i][j-2] or f[i-1][j], if match( s[i], p[j-1])
+        //                        f[i][j-2]   otherwise
 
-    public boolean dfs(String s, String p){
-//        System.out.println(s+":"+p);
-        if(s.length()==0 && p.length()==0) return true;
-
-        if(s.length() != 0 && p.length()==0 ) return false;
-
-
-        if(p.length()>1 ){
-            char pChar = p.charAt(0);
-            char pChar2 = p.charAt(1);
-//            System.out.println("pChar2"+pChar2);
-            //if pChar2 is * , may 0 or more than 1
-            if(pChar2 == star){
-//                System.out.println("pChar2 == star");
-                //if match
-                if(s.length()>0){
-                    if( s.charAt(0) == p.charAt(0) || pChar == point){
-                        String sSub = s.substring(1);
-                        //match 1 time
-//                        dfs(s.substring(1),p.substring(2));
-//                        // match more time;
-//                        dfs(s.substring(1),p);
-                        String pSub = p.substring(2);
-                        //match 0 time;
-                        return dfs(s,pSub) ||  dfs(sSub,p)  ;
-//                        return dfs(s.substring(1),p) || dfs(s,p.substring(2));
-                    }
-                    else {
-                        return  dfs(s, p.substring(2));
-                    }
+        boolean f[][] = new boolean[m+1][n+1];
+        f[0][0] = true;
+        for (int i = 0; i <= m ; i++) {
+            for (int j = 1; j <= n; j++) {
+                if(p.charAt(j-1)==star){
+                    f[i][j] = matches(s,p,i,j-1) ? f[i][j-2] || f[i-1][j] : f[i][j-2];
                 }
                 else {
-                    return dfs(s,p.substring(2));
+                    f[i][j] = matches(s, p, i, j) ? f[i-1][j-1]: false;
                 }
-
-//                return dfs(s,p.substring(2)) ||
-//                        ((s.length()>0 &&( s.charAt(0) == p.charAt(0) || pChar == point)) ? dfs(s.substring(1),p.substring(2)) ||dfs(s.substring(1),p): false);
-            }
-            else {
-
-                if(s.length()>0 &&( s.charAt(0) == p.charAt(0) || pChar == point)){
-//                    System.out.println("pChar==sChar===="+s.charAt(0)+":"+pChar);
-                    return dfs(s.substring(1),p.substring(1));
-                }
-                else {
-                    return false;
-                }
-            }
-
-        }
-        else {
-
-            if(s.length() == 0 && p.length()!=0 ) return false;
-//            System.out.println("in p.length()<=1=="+s+":"+p);
-            if((s.length()>0 &&( s.charAt(0) == p.charAt(0) || p.charAt(0) == point))){
-                return dfs(s.substring(1),p.substring(1));
-            }
-            else {
-//                System.out.println("return false");
-                return  false;
             }
         }
 
-
-
+        return f[m][n];
     }
+
+    private boolean matches(String s, String p, int i, int j) {
+
+        if (i == 0) {
+            return false;
+        }
+
+        if(p.charAt(j-1) == point) return true;
+
+        return s.charAt(i-1) == p.charAt(j-1);
+    }
+
+
 }

@@ -19,7 +19,28 @@ public class RegularExpressionTest {
         boolean isMathc = regularExpression.isMatch("aaa","a.a");
         Assert.assertTrue(isMathc);
 
-        System.out.println("****************************");
+        System.out.println("****************************.*a*a");
+        isMathc = regularExpression.isMatch("bbbba",".*a*a");
+        Assert.assertTrue(isMathc);
+
+        System.out.println("****************************a*c");
+        isMathc = regularExpression.isMatch("aaaaaaaaaab","a*a*a*a*a*a*a*a*a*a*c");
+        Assert.assertFalse(isMathc);
+
+        System.out.println("****************************a*a*a*a*a*a*a*a*a*a*c");
+        isMathc = regularExpression.isMatch("aaaaaaaaaaaaab","a*a*a*a*a*a*a*a*a*a*c");
+        Assert.assertFalse(isMathc);
+
+        System.out.println("****************************==.*..a*");
+        isMathc = regularExpression.isMatch("a",".*..a*");
+        Assert.assertFalse(isMathc);
+
+
+        System.out.println("****************************.*c");
+        isMathc = regularExpression.isMatch("ab",".*c");
+        Assert.assertFalse(isMathc);
+
+        System.out.println("****************************ab*ac*a");
         isMathc = regularExpression.isMatch("aaa","ab*ac*a");
         Assert.assertTrue(isMathc);
 
@@ -39,63 +60,73 @@ public class RegularExpressionTest {
         isMathc = regularExpression.isMatch("ab",".*");
         Assert.assertTrue(isMathc);
 
+//        System.out.println("****************************mis*is*ip*.");
+//        isMathc = regularExpression.isMatch("missiissppi","mis*is*ip*.");
+//        Assert.assertTrue(isMathc);          //"mississippi"
+
         System.out.println("****************************mis*is*ip*.");
         isMathc = regularExpression.isMatch("mississippi","mis*is*ip*.");
-        Assert.assertTrue(isMathc);
+        Assert.assertTrue(isMathc);          //"mississippi"     "mis*is*ip*."
+
+
 
         System.out.println("****************************.a");
         isMathc = regularExpression.isMatch("aaa",".a");
         Assert.assertFalse(isMathc);
 
-        System.out.println("****************************.a");
+        System.out.println("****************************a*a");
         isMathc = regularExpression.isMatch("aaa","a*a");
         Assert.assertTrue(isMathc);
 
-    }
-
-    @Test
-    public void testIsMatch2(){
-        RegularExpression regularExpression = new RegularExpression();
-
-        boolean isMathc = regularExpression.isMatch2("aaa","a.a");
-        Assert.assertTrue(isMathc);
-
-        System.out.println("****************************");
-        isMathc = regularExpression.isMatch2("aaa","ab*ac*a");
-        Assert.assertTrue(isMathc);
-
-        System.out.println("****************************");
-        isMathc = regularExpression.isMatch2("aaa","aa.a");
-        Assert.assertFalse(isMathc);
-
-        System.out.println("****************************");
-        isMathc = regularExpression.isMatch2("aaa","ab*a");
-        Assert.assertFalse(isMathc);
-
-        System.out.println("****************************a*");
-        isMathc = regularExpression.isMatch2("aa","a*");
-        Assert.assertTrue(isMathc);
-
-        System.out.println("****************************a*");
-        isMathc = regularExpression.isMatch2("ab",".*");
-        Assert.assertTrue(isMathc);
-
-        System.out.println("****************************mis*is*ip*.");
-        isMathc = regularExpression.isMatch2("mississippi","mis*is*ip*.");
-        Assert.assertTrue(isMathc);
-
-        System.out.println("****************************.a");
-        isMathc = regularExpression.isMatch2("aaa",".a");
-        Assert.assertFalse(isMathc);
-
-        System.out.println("****************************.a");
-        isMathc = regularExpression.isMatch2("aaa","a*a");
-        Assert.assertTrue(isMathc);
-
-
-        System.out.println("****************************=a*a*a*a*a*a*a*a*a*a*c");
-        isMathc = regularExpression.isMatch2("aaaaaaaaaaaaab" , "a*a*a*a*a*a*a*a*a*a*c");
+        System.out.println("****************************ab*");
+        isMathc = regularExpression.isMatch("a","ab*");
         Assert.assertTrue(isMathc);
 
     }
+
+//    @Test
+//    public void testIsMatch2(){
+//        RegularExpression regularExpression = new RegularExpression();
+//
+//        boolean isMathc = regularExpression.isMatch2("aaa","a.a");
+//        Assert.assertTrue(isMathc);
+//
+//        System.out.println("****************************");
+//        isMathc = regularExpression.isMatch2("aaa","ab*ac*a");
+//        Assert.assertTrue(isMathc);
+//
+//        System.out.println("****************************");
+//        isMathc = regularExpression.isMatch2("aaa","aa.a");
+//        Assert.assertFalse(isMathc);
+//
+//        System.out.println("****************************");
+//        isMathc = regularExpression.isMatch2("aaa","ab*a");
+//        Assert.assertFalse(isMathc);
+//
+//        System.out.println("****************************a*");
+//        isMathc = regularExpression.isMatch2("aa","a*");
+//        Assert.assertTrue(isMathc);
+//
+//        System.out.println("****************************a*");
+//        isMathc = regularExpression.isMatch2("ab",".*");
+//        Assert.assertTrue(isMathc);
+//
+//        System.out.println("****************************mis*is*ip*.");
+//        isMathc = regularExpression.isMatch2("mississippi","mis*is*ip*.");
+//        Assert.assertTrue(isMathc);
+//
+//        System.out.println("****************************.a");
+//        isMathc = regularExpression.isMatch2("aaa",".a");
+//        Assert.assertFalse(isMathc);
+//
+//        System.out.println("****************************.a");
+//        isMathc = regularExpression.isMatch2("aaa","a*a");
+//        Assert.assertTrue(isMathc);
+//
+//
+//        System.out.println("****************************=a*a*a*a*a*a*a*a*a*a*c");
+//        isMathc = regularExpression.isMatch2("aaaaaaaaaaaaab" , "a*a*a*a*a*a*a*a*a*a*c");
+//        Assert.assertTrue(isMathc);
+//
+//    }
 }
