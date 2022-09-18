@@ -1,18 +1,23 @@
 package com.strawbingo.algorithm.sword.ch3;
 
+/**
+ * 题20：表示数值的字符串
+ * 请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。
+ * 例如字符串”+100“、”5e2“、”-123“、”3.1416”及“-1E-16“都表示数值，
+ * 但”12e“、”1a3.14“、”1.2.3“、”+-5“及”12e+5.4“都不是
+ */
 public class StringIsNumber {
 
     /**
-     * 请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。
-     * 例如字符串”+100“、”5e2“、”-123“、”3.1416”及“-1E-16“都表示数值，
-     * 但”12e“、”1a3.14“、”1.2.3“、”+-5“及”12e+5.4“都不是
-     *
      * A[.B][e|E[]C]
+     *
+     *
      */
     public boolean isNumber(String s) {
-
+         //trim blank
         s = s.trim();
-        if(s.isEmpty()) return false;
+        if(s == null || s.length() ==0) return false;
+//        System.out.println("in isNumber:"+s);
 
 //        System.out.println("isNumber"+s);
 
@@ -33,54 +38,66 @@ public class StringIsNumber {
     private boolean isAllNumber(String s) {
 //        System.out.println("isAllNumber"+s);
 
-
-        if(s.charAt(0) == '+' || s.charAt(0)=='-'){
-            s = s.substring(1);
+        }
+        else {
+            //check is number
+            //if have . split to 2 part . and check is number
+            if(s.indexOf(".")>=0){
+//                System.out.println("s.substring(0,s.indexOf(\".\")="+s.substring(0,s.indexOf(".")));
+                if (!isNumberWithDot(s)) return false;
+            }
+            else {
+                if(!isNumberWithSign(s,false)) return false;
+            }
         }
 
-        if(s.length()==0) return false;
-
-        return  isPositiveNumber(s);
-    }
-
-    private boolean isPositiveNumber(String s) {
-//        System.out.println("isPositiveNumber"+s);
-
-
-        for(int i=0; i <s.length();i++){
-            int i1 = 0;
-            try {
-                i1 = Integer.parseInt(s.charAt(i)+"");
-            }
-            catch (Exception e){
-                return false;
-            }
-//            System.out.println("isPositiveNumber"+i1);
-//            System.out.println(i1+ "="+s.charAt(i));
-            if(s.charAt(i)<'0'|| s.charAt(i)> '9')
-                return false;
-        }
         return true;
     }
 
     private boolean isNumberWithDot(String s) {
-//        System.out.println("isNumberWithDot"+s);
         if(s.charAt(0) == '+' || s.charAt(0)=='-'){
-            s = s.substring(1);
+            s=s.substring(1);
         }
-        if(s.length()==0) return false;
-        if(s.indexOf('.')>=0){
-            int eIndex =  s.indexOf('.');
-            String s1 = s.substring(0,eIndex);
-            String s2 = s.substring(eIndex+1);
-//            System.out.println(s1+"=s1s2="+s2);
-            if(s1.length()==0 && s2.length() ==0) return false;
-            return ((s1.length()>0)?isPositiveNumber(s1):true) &&
-                    isPositiveNumber(s2);
+        int dotIndex = s.indexOf(".");
+        if(s.substring(0,dotIndex).length() == 0 && s.substring(dotIndex+1).length() ==0) return false;
+
+        boolean part1 = s.substring(0, dotIndex).length()==0?true:isNumberWithSign(s.substring(0, dotIndex), false);
+        boolean part2 = s.substring(dotIndex + 1).length()==0?true: isNumberOnly(s.substring(dotIndex + 1), false);
+
+        return (part1==false||part2==false)? false:true;
+    }
+
+    private boolean isNumberOnly(String s,boolean must) {
+        if(s==null || s.length()==0){
+            return must? false:true;
+        }
+        char[] chars = s.toCharArray();
+        for (char c:
+             chars) {
+            int num = (int)c-(int)'0';
+//            System.out.println("num="+num);
+            if(num < 0 || num > 9){
+//                System.out.println("return false");
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean isNumberWithSign(String s,boolean must) {
+//        System.out.println("isNumberWithSign="+s);
+        if(s==null || s.length()==0){
+            return must? false:true;
+        }
+        if(s.charAt(0) == '+' || s.charAt(0)=='-'){
+            return isNumberOnly(s.substring(1),true);
         }
         else {
-            return isPositiveNumber(s);
+            return isNumberOnly(s,false);
         }
+
     }
+
 
 }
