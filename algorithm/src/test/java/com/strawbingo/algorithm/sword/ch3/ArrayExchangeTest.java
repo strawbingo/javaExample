@@ -22,6 +22,10 @@ public class ArrayExchangeTest {
         int[] res2 =  {1,9,3,7,5,6,4,8,2};
         Assert.assertArrayEquals(res2,arrayExchange.exchange(arr2));
 
+        int[] arr3 = {1,3,5};
+        int[] res3 =  {1,3,5};
+        Assert.assertArrayEquals(res3,arrayExchange.exchange(arr3));
+
     }
 
 }
