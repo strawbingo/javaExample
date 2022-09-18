@@ -19,24 +19,28 @@ public class StringIsNumber {
         if(s == null || s.length() ==0) return false;
 //        System.out.println("in isNumber:"+s);
 
-//        System.out.println("isNumber"+s);
-
-        if(s.indexOf('e')>0 || s.indexOf('E') >0){
-            int eIndex =  s.indexOf('e')>0?s.indexOf('e'):s.indexOf('E');
-            String s1 = s.substring(0,eIndex);
-            String s2 = s.substring(eIndex+1);
-
-            if(s2.length() == 0) return false;
-
-            return  isNumberWithDot(s1) && isAllNumber(s2);
-        }
-
-        return isNumberWithDot(s);
-
-    }
-
-    private boolean isAllNumber(String s) {
-//        System.out.println("isAllNumber"+s);
+        //if have e|E , split to 2 part
+        if(s.indexOf("e")>0 || s.indexOf("E")>0){
+            String part1,part2;
+            if(s.indexOf("e")>0){
+                part1 = s.substring(0,s.indexOf("e"));
+                part2 = s.substring(s.indexOf("e")+1,s.length());
+            }
+            else {
+                part1 = s.substring(0,s.indexOf("E"));
+                part2 = s.substring(s.indexOf("E")+1,s.length());
+            }
+            //first part , if have . split to 2 part . and check is number
+            if(part1.indexOf(".")>=0){
+//                System.out.println("part1="+part1);
+                if (!isNumberWithDot(part1)) return false;
+            }
+            else {
+//                System.out.println("part1="+part1);
+                if(!isNumberWithSign(part1,false)) return false;
+            }
+            //second par after 'e', check is number
+            if(!isNumberWithSign(part2,true)) return false;
 
         }
         else {
