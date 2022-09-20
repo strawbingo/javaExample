@@ -10,41 +10,32 @@ public class PrintNumber {
 
 
     public int[] printNumber(int n) {
-//        int[] nums = {1,2,3,4,5,6,7,8,9,0};
-
-        ArrayList<Integer> list = new ArrayList<>();
-//        dfs(n,nums,list);
-//        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> listStr = new ArrayList();
 
 
+//        for (int i = 0; i < n; i++) {
+            dfs(listStr,"",n);
+//        }
 
-
-        for (int i = 0; i < 10; i++) {
-            dfs(n-1,i+"",list);
-        }
-        int[] ans = new int[list.size()-1];
-//        list.stream().forEach(item ->System.out.println(item));
-        for (int i = 0; i <list.size()-1; i++) {
-            ans[i] = list.get(i+1);
+        int[] nums = new int[listStr.size()-1];
+        for (int i = 0; i < listStr.size()-1 ; i++) {
+            nums[i] = Integer.parseInt(listStr.get(i+1));
         }
 
-        return ans;
+        return nums;
     }
 
-
-    private void dfs(int n,String iNum, ArrayList<Integer> list) {
+    private void dfs(ArrayList<String> listStr,String i,int n) {
         if(n==0){
-//            list.add(iNum);
-            list.add(Integer.parseInt(iNum));
+            listStr.add(i);
             return;
         }
 
-        for (int i = 0; i < 10; i++) {
-            dfs(n-1,iNum+i,list);
+        for (int j = 0; j < 10 ; j++) {
+            dfs(listStr,i+j,n-1);
         }
-
-
     }
+
 
 //    public String printNumbers(int n) {
 //        this.n = n;
