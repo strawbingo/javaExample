@@ -4,6 +4,10 @@ import com.strawbingo.algorithm.sword.ListNode;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * 题24：反转链表
+ * 定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点
+ */
 public class ListNodeReverseTest {
 
     ListNode head;
@@ -22,10 +26,7 @@ public class ListNodeReverseTest {
 
     }
 
-    /**
-     * 题24：反转链表
-     * 定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点
-     */
+
     @Test
     public void testReverseList() {
 
@@ -37,8 +38,7 @@ public class ListNodeReverseTest {
     }
 
     /**
-     * 题24：反转链表
-     * 定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点
+     * 递归
      */
     @Test
     public void testReverseLisRecursion() {
