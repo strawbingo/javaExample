@@ -23,12 +23,12 @@ public class TreeNodeMirror {
             return root;
         }
 
-        TreeNode tmp = root.getLeftNode();
-        root.setLeftNode(root.getRightNode());
-        root.setRightNode(tmp);
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
 
-        mirrorTree(root.getLeftNode());
-        mirrorTree(root.getRightNode());
+        mirrorTree(root.left);
+        mirrorTree(root.right);
 
         return root;
     }
