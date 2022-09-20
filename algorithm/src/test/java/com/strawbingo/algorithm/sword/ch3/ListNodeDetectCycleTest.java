@@ -4,6 +4,11 @@ import com.strawbingo.algorithm.sword.ListNode;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * 题23：链表中环的入口点给定一个链表，返回链表开始入环的第一个节点。
+ * 从链表的头节点开始沿着 next 指针进入环的第一个节点为环的入口节点。
+ * 如果链表无环，则返回 null。如果一个链表中包含环，如何找出环的入口节点？
+ */
 public class ListNodeDetectCycleTest {
 
     ListNode head;
@@ -35,10 +40,7 @@ public class ListNodeDetectCycleTest {
 
     }
 
-    /**
-     * 题23：链表中环的入口点
-     * 如果一个链表中包含环，如何找出环的入口节点？
-     */
+
     @Test
     public void testGetEntryPoint(){
         ListNodeDetectCycle listNodeDetectCycle = new ListNodeDetectCycle();
