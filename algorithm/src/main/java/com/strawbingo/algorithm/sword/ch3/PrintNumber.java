@@ -1,39 +1,47 @@
 package com.strawbingo.algorithm.sword.ch3;
 
-import java.util.ArrayList;
-
 /**
  * 题17：打印从1到最大的n位数
  * 输入数字n，按顺序打印出从1到最大的n位十进制数。比如输入3，则打印出1、2、3一直到最大的3位数999
  */
 public class PrintNumber {
 
-
+    int[] nums;
+    char[] num;
+    int nine = 0;
+    int len;
+    int count=0;
     public int[] printNumber(int n) {
-        ArrayList<String> listStr = new ArrayList();
+        count = 0;
+        num = new char[n];
+        len = n;
 
+        nums = new int[(int)Math.pow(10,n)-1];
 
-//        for (int i = 0; i < n; i++) {
-            dfs(listStr,"",n);
-//        }
-
-        int[] nums = new int[listStr.size()-1];
-        for (int i = 0; i < listStr.size()-1 ; i++) {
-            nums[i] = Integer.parseInt(listStr.get(i+1));
-        }
+        dfs(n);
 
         return nums;
     }
 
-    private void dfs(ArrayList<String> listStr,String i,int n) {
+    private void dfs(int n) {
         if(n==0){
-            listStr.add(i);
+
+            String numTmp = String.valueOf(num).substring(nine);
+//            System.out.println(numTmp);
+            int numInt = Integer.parseInt(numTmp);
+//            System.out.println(numInt);
+            if(numInt>0) nums[count++] = numInt;
             return;
         }
 
-        for (int j = 0; j < 10 ; j++) {
-            dfs(listStr,i+j,n-1);
+        for (int i = 0; i < 10; i++) {
+            num[len-n] = (char)(i + '0');
+            dfs(n-1);
+            if(i==9){
+                nine++;
+            }
         }
+        nine--;
     }
 
 
