@@ -48,7 +48,7 @@ public class TreeNodeSubStructure {
 
         //compare curr with sub
         //if equals,check left and right
-        if(parent.getValue() == sub.getValue()){
+        if(parent.getVal() == sub.getVal()){
             return recur(parent.getLeftNode(),sub.getLeftNode())
                     && recur(parent.getRightNode(),sub.getRightNode());
         }
