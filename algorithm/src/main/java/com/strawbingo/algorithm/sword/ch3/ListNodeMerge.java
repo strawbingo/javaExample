@@ -8,6 +8,12 @@ import com.strawbingo.algorithm.sword.ListNode;
  */
 public class ListNodeMerge {
 
+    /**
+     * 迭代
+     * @param nodeA1
+     * @param nodeB1
+     * @return
+     */
     public ListNode mergeTwoLists(ListNode nodeA1, ListNode nodeB1) {
         ListNode preHead = new ListNode(-1);
         ListNode curr = preHead;
@@ -17,14 +23,13 @@ public class ListNodeMerge {
 //            System.out.println(nodeA1.getVal()+"=="+nodeB1.getVal());
             if(nodeA1.getVal() <= nodeB1.getVal()){
                 curr.setNext(nodeA1);
-                curr = curr.getNext();
                 nodeA1 = nodeA1.getNext();
             }
             else {
                 curr.setNext(nodeB1);
-                curr = curr.getNext();
                 nodeB1 = nodeB1.getNext();
             }
+            curr = curr.getNext();
         }
 
         curr.setNext(nodeA1==null?nodeB1:nodeA1);
@@ -32,6 +37,12 @@ public class ListNodeMerge {
         return preHead.getNext();
     }
 
+    /**
+     * 递归
+     * @param nodeA1
+     * @param nodeB1
+     * @return
+     */
     public ListNode mergeTwoListsRecursion(ListNode nodeA1, ListNode nodeB1) {
 
         if(nodeA1==null){
