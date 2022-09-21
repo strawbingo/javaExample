@@ -9,57 +9,41 @@ public class MatrixPrint {
     public int[] clockwisePrint(int[][] matrix) {
         if(matrix==null || matrix.length==0) return new int[0];
 
+        int cols =  matrix[0].length;
         int rows = matrix.length;
-        int cols = matrix[0].length;
+        int[] ans = new int[cols*rows];
+        int index = 0;
 
-        int size = rows * cols;
-        int[] printArr = new int[size];
-        int printArrIndex = 0;
+        int left =0, top=0, right =cols-1, bottom = rows-1;
+        while (left<=right && top<=bottom){
 
-        int  left=0, right = cols-1 , top=0, bottom = rows-1;
-
-        //loop item
-        while (left <= right && top <= bottom) {
-            //print row from left to right
-            for(int column=left; column<=right; column++){
-                printArr[printArrIndex++] = matrix[top][column];
+            for(int col = left; col<= right;col++){
+                ans[index++] = matrix[top][col];
             }
 
-            //print col form up to down
-            //if bottom > top
-            if(bottom > top ) {
-                for (int row = top + 1; row <= bottom; row++) {
-                    printArr[printArrIndex++] = matrix[row][right];
+            for(int row = top+1; row<= bottom; row++){
+                ans[index++] = matrix[row][right];
+            }
+
+            if(bottom>top) {
+                for(int col = right-1; col>=left ; col--){
+                    ans[index++] = matrix[bottom][col];
                 }
             }
 
-
-            //print row from right to left
-            //if right > left
-            if(right > left && bottom > top) {
-                for (int column = right-1 ; column > left; column--) {
-                    printArr[printArrIndex++] = matrix[bottom][column];
+            if(right>left) {
+                for(int row = bottom-1; row>top; row--){
+                    ans[index++] = matrix[row][left];
                 }
             }
 
-            //print col from down to up
-            //if bottom > top
-            if(bottom > top  && right > left) {
-                for (int row = bottom ; row > top; row--) {
-                    printArr[printArrIndex++] = matrix[row][left];
-                }
-            }
-
-            //move to next loop
+            top++;
             left++;
             right--;
-            top++;
             bottom--;
-
-
         }
 
-        return printArr;
+        return ans;
     }
 
 }
