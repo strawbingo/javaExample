@@ -44,6 +44,9 @@ public class BinaryTreePrintTest {
         int[] order = binaryTreePrint.levelOrder(root);
         Assert.assertEquals(2,order[4]);
         Assert.assertEquals(5,order[2]);
+
+        int[] ans = binaryTreePrint.levelOrder(null);
+        Assert.assertEquals(0,ans.length);
     }
 
     /**

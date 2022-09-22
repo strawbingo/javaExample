@@ -21,25 +21,25 @@ public class BinaryTreePrint {
     public int[] levelOrder(TreeNode root) {
         if(root == null) return new int[0];
 
-        List<Integer> arr = new ArrayList<>();
+        List<Integer> ansList = new ArrayList<>();
         Queue<TreeNode> que = new LinkedList<>();
         que.add(root);
         while (!que.isEmpty()){
             TreeNode node = que.poll();
             if(node !=null) {
-                arr.add(node.getVal());
+                ansList.add(node.getVal());
                 que.add(node.getLeftNode());
                 que.add(node.getRightNode());
             }
         }
 
-        int[] res = new int[arr.size()];
+        int[] ans = new int[ansList.size()];
         int i = 0;
-        for(int tmp:arr){
-            res[i++] = tmp;
+        for(int tmp:ansList){
+            ans[i++] = tmp;
         }
 
-        return res;
+        return ans;
     }
 
     /**
@@ -47,31 +47,29 @@ public class BinaryTreePrint {
      * 从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行
      */
     public List<List<Integer>> levelOrderLineFeed(TreeNode root) {
-        if(root == null) return null;
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        if(root == null) return ans;
 
         Queue<TreeNode> que = new LinkedList<>();
-        Queue<TreeNode> queTmp = new LinkedList<>();
         que.add(root);
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-
-        //que is not null
-        List<Integer> inner = new ArrayList<>();
-        while (!que.isEmpty()){
-            TreeNode node = que.poll();
-            inner.add(node.getVal());
-            if(node.getLeftNode()!= null) queTmp.add(node.getLeftNode());
-            if(node.getRightNode() !=null) queTmp.add(node.getRightNode());
-
-            //que is null and tmp is not null
-            if(que.isEmpty()){
-                res.add(inner);
-                inner = new ArrayList<>();
-                while (!queTmp.isEmpty())
-                    que.add(queTmp.poll());
-                }
+        //loop one level
+        while(!que.isEmpty()){
+            //construct level value list and set next level for loop
+            List<Integer> levelAns = new ArrayList();
+            List<TreeNode> nextLevel = new ArrayList();
+            while(!que.isEmpty()){
+                TreeNode node = ((LinkedList<TreeNode>) que).pollFirst();
+                levelAns.add(node.val);
+                if(node.left != null) nextLevel.add(node.left);
+                if(node.right != null) nextLevel.add(node.right);
             }
 
-        return res;
+            que.addAll(nextLevel);
+            ans.add(levelAns);
+            nextLevel.clear();
+        }
+
+        return ans;
 
     }
 
@@ -81,33 +79,36 @@ public class BinaryTreePrint {
      * 即第一行按照从左到右的顺序打印，第二层按照从右到左的顺序打印，第三行再按照从左到右的顺序打印
      */
     public List<List<Integer>> levelOrderZLineFeed(TreeNode root) {
-        if(root == null) return new ArrayList<>();
-        //
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root ==null) return ans;
 
-        Queue<TreeNode> que = new ArrayDeque();
+        Queue<TreeNode> que = new LinkedList<>();
+        boolean z = false;
+
         que.add(root);
-        boolean z = true;
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        //if stack is not null print order
-        while (!que.isEmpty()) {
-            int forSize = que.size();
-            //loop print
-            Deque<Integer> inner = new LinkedList<>();
-            for(int i=0; i<forSize; i++){
-                TreeNode node = que.poll();
-                if(z){
-                    inner.addLast(node.getVal());
-                }else {
-                    inner.addFirst(node.getVal());
-                }
-                if(node.getLeftNode() != null) que.add(node.getLeftNode());
-                if(node.getRightNode() != null)  que.add(node.getRightNode());
+        while (!que.isEmpty()){
+//            System.out.println("----"+z);
+            int size = que.size();
+            List<Integer> level = new ArrayList();
+            for (int i = 0; i < size ; i++) {
+                int index = i;
+                if(z) index = size-i-1;
+//                System.out.println(index);
+                TreeNode node = ((LinkedList<TreeNode>) que).get(index);
+
+                level.add(node.val);
             }
-            res.add(new ArrayList<>(inner));
+            for (int i = 0; i < size ; i++) {
+                TreeNode node = que.poll();
+                if(node.left!=null) que.add(node.left);
+                if(node.right!=null) que.add(node.right);
+            }
             z = !z;
+            ans.add(level);
         }
 
-        return res;
+
+        return ans;
     }
 
 }
