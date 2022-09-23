@@ -9,50 +9,35 @@ package com.strawbingo.algorithm.sword.ch4;
 public class BinaryTreeVerify {
 
     public boolean verifyPostorder(int[] arr) {
-        if(arr==null || arr.length == 0 ) return false;
-
-        return verifyPostorder(arr, 0, arr.length-1);
-
+        if(arr == null || arr.length ==0) return true;
+        return verifyPostorderRecur(arr,0,arr.length-1);
     }
 
-    /**
-     *  {5,7,6,9,11,10,8
-     * @param arr
-     * @param begin
-     * @param end
-     * @return
-     */
-    private boolean verifyPostorder(int[] arr, int begin, int end) {
-        System.out.println(begin+"="+end);
-        if(end <0) return true;
-        if(begin >= end ) return true;
-
+    boolean verifyPostorderRecur(int[] arr, int begin,int end){
+//        System.out.println(begin+":"+end);
+        if(begin >= end) return true;
 
         int root = arr[end];
-        //find first num > root
-        int mid = -1;
-        boolean foundRoot = false;
-        for(int i = begin; i < end  ; i++){
-            mid = i;
-            if(arr[i]>root){
-                foundRoot = true;
+        int mid = begin;
+        //get mid
+        for (int i = mid; i <end; i++) {
+
+            if(arr[i] > root){
                 break;
             }
-        }
-
-        if(!foundRoot){
             mid++;
         }
 
-        //check all right > root
+        //check
         for (int i = mid; i < end; i++) {
             if(arr[i]<root){
-                System.out.println(arr[i]+"===="+root);
-                return  false;
+                return false;
             }
         }
-        //check left and right
-        return verifyPostorder(arr,begin,mid-1) && verifyPostorder(arr,mid,end-1);
+
+//        System.out.println(begin+":end:"+end);
+        //recur
+        return verifyPostorderRecur(arr, begin,mid-1) && verifyPostorderRecur(arr,mid,end-1);
 
 
     }

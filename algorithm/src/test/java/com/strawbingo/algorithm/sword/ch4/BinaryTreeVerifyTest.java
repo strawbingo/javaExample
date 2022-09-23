@@ -14,15 +14,24 @@ public class BinaryTreeVerifyTest {
     @Test
     public void testVerifyPostorder(){
         BinaryTreeVerify binaryTreeVerify = new BinaryTreeVerify();
-        int[] arr = {5,7,6,9,11,10,8};
-        Assert.assertTrue(binaryTreeVerify.verifyPostorder(arr));
+//        int[] arr = {5,7,6,9,11,10,8};
+//        Assert.assertTrue(binaryTreeVerify.verifyPostorder(arr));
+//
+//        int[] arr2 = {7,6,4,5};
+//        Assert.assertFalse(binaryTreeVerify.verifyPostorder(arr2));
+//
+//        int[] arr3 = {4,6,7,5};
+//        Assert.assertTrue(binaryTreeVerify.verifyPostorder(arr3));
+//
+//        int[] arr4 = {1,2, 3, 4, 5};
+//        Assert.assertTrue(binaryTreeVerify.verifyPostorder(arr4));
+//
+//        int[] arr5 = {1,2,5,10,6,9,4,3};
+//        Assert.assertFalse(binaryTreeVerify.verifyPostorder(arr5));
 
-        int[] arr2 = {7,6,4,5};
-        Assert.assertFalse(binaryTreeVerify.verifyPostorder(arr2));
+        int[] arr6 = {1,2,3,6,7,5};
+        Assert.assertTrue(binaryTreeVerify.verifyPostorder(arr6));
 
-        int[] arr3 = {4,6,7,5};
-        Assert.assertTrue(binaryTreeVerify.verifyPostorder(arr3));
-
-        Assert.assertFalse(binaryTreeVerify.verifyPostorder(null));
+        Assert.assertTrue(binaryTreeVerify.verifyPostorder(null));
     }
 }
