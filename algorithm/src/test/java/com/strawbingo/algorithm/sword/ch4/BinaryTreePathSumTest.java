@@ -42,47 +42,51 @@ public class BinaryTreePathSumTest {
         nodeR4.setRightNode(node1);
 
         BinaryTreePathSum binaryTreePathSum = new  BinaryTreePathSum();
-//        List<List<Integer>> list = binaryTreePathSum.pathSum(root, 22);
-//        Assert.assertEquals(2,list.size());
-//        Assert.assertEquals(2,list.get(0).get(3).intValue());
-//
-//        list = binaryTreePathSum.pathSum(root, 50);
-//        Assert.assertEquals(0,list.size());
-//
-//        TreeNode root2nd1 = new TreeNode(1);
-//        TreeNode root2nd2 = new TreeNode(2);
-//        root2nd1.setLeftNode(root2nd2);
-//        list = binaryTreePathSum.pathSum(root2nd1, 0);
-//        Assert.assertEquals(0,list.size());
-//
-//        list = binaryTreePathSum.pathSum(root2nd1, 1);
-//        Assert.assertEquals(0,list.size());
-//
-//        TreeNode root3nd1 = new TreeNode(1);
-//        list = binaryTreePathSum.pathSum(root3nd1, 1);
-//        Assert.assertEquals(1,list.size());
+        List<List<Integer>> list = binaryTreePathSum.pathSum(root, 22);
+        Assert.assertEquals(2,list.size());
+        Assert.assertEquals(2,list.get(0).get(3).intValue());
 
-//        TreeNode root4nd1 = new TreeNode(-2);
-//        TreeNode root4nd2 = new TreeNode(-3);
-//        root4nd1.setRightNode(root4nd2);
-//        List<List<Integer>> list = binaryTreePathSum.pathSum(root4nd1, -5);
-//        Assert.assertEquals(1,list.size());
+        list = binaryTreePathSum.pathSum(root, 50);
+        Assert.assertEquals(0,list.size());
+
+        TreeNode root2nd1 = new TreeNode(1);
+        TreeNode root2nd2 = new TreeNode(2);
+        root2nd1.setLeftNode(root2nd2);
+        list = binaryTreePathSum.pathSum(root2nd1, 0);
+        Assert.assertEquals(0,list.size());
+
+        list = binaryTreePathSum.pathSum(root2nd1, 1);
+        Assert.assertEquals(0,list.size());
+
+        //ddddddddd
+        TreeNode root3nd1 = new TreeNode(1);
+        list = binaryTreePathSum.pathSum(root3nd1, 1);
+        Assert.assertEquals(1,list.size());
+
+        TreeNode root4nd1 = new TreeNode(-2);
+        TreeNode root4nd2 = new TreeNode(-3);
+        root4nd1.right = root4nd2;
+        list = binaryTreePathSum.pathSum(root4nd1, -5);
+        Assert.assertEquals(1,list.size());
 
         TreeNode root5nd1 = new TreeNode(1);
         TreeNode root5nd2 = new TreeNode(-2);
         TreeNode root5nd3 = new TreeNode(-3);
+        root5nd1.left = root5nd2;
+        root5nd1.right = root5nd3;
+
         TreeNode root5nd4 = new TreeNode(1);
         TreeNode root5nd5 = new TreeNode(3);
-        TreeNode root5nd6 = new TreeNode(-2);
-        TreeNode root5nd7 = new TreeNode(-1);
-        root5nd1.setLeftNode(root5nd2);
-        root5nd1.setRightNode(root5nd3);
         root5nd2.setLeftNode(root5nd4);
         root5nd2.setRightNode(root5nd5);
+
+        TreeNode root5nd6 = new TreeNode(-2);
         root5nd3.setLeftNode(root5nd6);
+
+        TreeNode root5nd7 = new TreeNode(-1);
         root5nd4.setLeftNode(root5nd7);
 
-        List<List<Integer>> list = binaryTreePathSum.pathSum(root5nd1, -1);
+        list = binaryTreePathSum.pathSum(root5nd1, -1);
         Assert.assertEquals(1,list.size());
 
 
