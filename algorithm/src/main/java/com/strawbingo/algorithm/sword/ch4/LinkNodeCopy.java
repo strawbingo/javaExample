@@ -10,8 +10,8 @@ public class LinkNodeCopy {
     public Node copyRandomList(Node head) {
         if(head == null) return null;
 
-
         Node curr = head;
+        //copy node and appen to resource;
         while (curr != null) {
 //            System.out.println("a"+curr.val);
             //copy curr node
@@ -25,7 +25,7 @@ public class LinkNodeCopy {
             curr = newNode.next;
         }
 
-        //copy random link
+        //link random link
         curr = head;
         while(curr!=null){
 //            System.out.println("b"+curr.val);
