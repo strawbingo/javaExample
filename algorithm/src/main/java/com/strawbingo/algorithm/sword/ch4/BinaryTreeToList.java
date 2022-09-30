@@ -8,38 +8,30 @@ package com.strawbingo.algorithm.sword.ch4;
  */
 public class BinaryTreeToList {
     Node head;
-//    Node tail;
     Node pre;
-//    Node curr;
-
 
     public Node treeToDoublyList(Node root) {
         if(root == null) return null;
 
         dfs(root);
-
         head.left = pre;
         pre.right = head;
 
         return head;
     }
 
-    private void dfs(Node root) {
-        if(root == null) return;
+    private void dfs(Node curr) {
+        if(curr == null) return;
 
-        dfs(root.left);
-//        curr = root;
+        dfs(curr.left);
         if(pre == null){
-            head = root;
+            head = curr;
         }else {
-            pre.right = root;
-            root.left = pre;
+            pre.right = curr;
+            curr.left = pre;
         }
-
-        pre = root;
-        dfs(root.right);
-//        if(pre != null) tail = curr;
-
+        pre = curr;
+        dfs(curr.right);
 
     }
 
