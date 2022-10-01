@@ -40,6 +40,10 @@ public class BinaryTreeCoderTest {
 //        Assert.assertEquals("1,2,null,null,3,4,null,null,5,null,null",s);
         Assert.assertEquals("1,2,3,null,null,4,5,null,null,null,null",s);
 
+        s = binaryTreeCoder.serializeLeetCode1(root);
+//        Assert.assertEquals("1,2,null,null,3,4,null,null,5,null,null",s);
+        Assert.assertEquals("[1,2,3,null,null,4,5,null,null,null,null]",s);
+
     }
 
 
