@@ -76,4 +76,53 @@ public class BinaryTreeCoder {
         return head;
     }
 
+    StringBuilder sb;
+    /**
+     *
+     * @param root
+     * @return
+     */
+    public String serializeRecur(TreeNode root) {
+        if(root == null) return null;
+        sb = new StringBuilder();
+        sb.append(root==null?"null":root.val).append(",");
+        dfs(root);
+        sb.deleteCharAt(sb.length()-1);
+        return sb.toString();
+    }
+
+    private void dfs(TreeNode root) {
+
+        sb.append(root.left==null?"null":root.left.val).append(",");
+        sb.append(root.right==null?"null":root.right.val).append(",");
+
+        if(root.left!=null) dfs(root.left);
+        if(root.right!=null) dfs(root.right);
+    }
+
+
+    int i =0 ;
+    public TreeNode deserializeRecur(String s) {
+        if(s==null || s.length()==0) return  null;
+        String[] split = s.split(",");
+        TreeNode head = new TreeNode(Integer.parseInt(split[0]));
+        i++;
+        dRecur(head,split);
+        return head;
+    }
+
+    private void dRecur(TreeNode curr, String[] split) {
+        if(curr==null) return;
+
+        if(!split[i].equals("null")){
+            curr.left = new TreeNode(Integer.parseInt(split[i]));
+        }
+        i++;
+        if(!split[i].equals("null")){
+            curr.right = new TreeNode(Integer.parseInt(split[i]));
+        }
+        i++;
+        dRecur(curr.left,split);
+        dRecur(curr.right,split);
+    }
 }

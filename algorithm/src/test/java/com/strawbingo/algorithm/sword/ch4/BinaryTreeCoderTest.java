@@ -40,6 +40,10 @@ public class BinaryTreeCoderTest {
 //        Assert.assertEquals("1,2,null,null,3,4,null,null,5,null,null",s);
         Assert.assertEquals("1,2,3,null,null,4,5,null,null,null,null",s);
 
+        s = binaryTreeCoder.serializeRecur(root);
+//        Assert.assertEquals("1,2,null,null,3,4,null,null,5,null,null",s);
+        Assert.assertEquals("1,2,3,null,null,4,5,null,null,null,null",s);
+
         s = binaryTreeCoder.serializeLeetCode1(root);
 //        Assert.assertEquals("1,2,null,null,3,4,null,null,5,null,null",s);
         Assert.assertEquals("[1,2,3,null,null,4,5,null,null,null,null]",s);
@@ -53,10 +57,17 @@ public class BinaryTreeCoderTest {
         TreeNode root = binaryTreeCoder.deserialize("1,2,3,null,null,4,5,null,null,null,null");
         Assert.assertEquals(1,root.val);
 
-        root = binaryTreeCoder.deserialize("1,2,3,null,null,4,5");
-        Assert.assertEquals(1,root.val);
+//        root = binaryTreeCoder.deserialize("1,2,3,null,null,4,5");
+//        Assert.assertEquals(1,root.val);
 
-        root = binaryTreeCoder.deserialize("5,2,3,null,null,2,4,3,1");
+//        root = binaryTreeCoder.deserialize("5,2,3,null,null,2,4,3,1");
+//        Assert.assertEquals(5,root.val);
+
+        root = binaryTreeCoder.deserialize("5,2,3,null,null,2,4,3,1,null,null,null,null,null,null");
+        Assert.assertEquals(5,root.val);
+
+
+        root = binaryTreeCoder.deserializeRecur("5,2,3,null,null,2,4,3,1,null,null,null,null,null,null");
         Assert.assertEquals(5,root.val);
     }
 }
