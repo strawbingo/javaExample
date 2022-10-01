@@ -2,60 +2,64 @@ package com.strawbingo.algorithm.sword.ch4;
 
 import com.strawbingo.algorithm.sword.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class BinaryTreeCoder {
 
-    private String s = "";
-
 
     public String serialize(TreeNode root) {
-        if (root == null) return "[]";
+        if(root == null) return null;
 
-        dfs(root);
+        StringBuilder sb = new StringBuilder();
+        Deque<TreeNode> que = new LinkedList();
+        que.push(root);
 
-        return "["+s.substring(0,s.length()-1)+"]";
-    }
-
-    private void dfs(TreeNode root) {
-        if(root == null) {
-            s = s+"null,";
-            return;
+        //level traversal
+        while(!que.isEmpty()){
+            TreeNode curr = que.pollFirst();
+            sb.append(curr==null?"null":curr.val).append(",");
+            if(curr != null){
+                que.offer(curr.left);
+                que.offer(curr.right);
+            }
+//            System.out.println("=========");
+//            que.stream().forEach(node -> System.out.println(node==null?null:node.val));
         }
 
-        s= s+ root.val+",";
-        dfs(root.left);
-        dfs(root.right);
-
+        sb.deleteCharAt(sb.length()-1);
+        return sb.toString();
     }
 
-    public TreeNode deserialize(String s) {
-        List split = new LinkedList(Arrays.asList(s.substring(1, s.length() - 1).split(",")));
+    public TreeNode deserialize(String data) {
+        if(data == null || data.equals("")) return null;
 
-        return  rdfs(split);
-
-    }
-
-    private TreeNode rdfs(List split) {
-        if (split.size() == 0 ) return  null;
-
-        if("null".equals(split.get(0) )){
-            split.remove(0);
-            return null;
+        String[] arr = data.split(",");
+        TreeNode head = new TreeNode(Integer.valueOf(arr[0]));
+        Deque<TreeNode> que = new LinkedList();
+        que.push(head);
+        int i = 0;
+        while(i< arr.length){
+            System.out.println(i);
+            TreeNode curr = que.pollFirst();
+            if(i>=arr.length) break;
+            if(curr==null) {
+                i++;
+                continue;
+            }
+            i++;
+            if(i>=arr.length) break;
+            TreeNode left = arr[i].equals("null")?null:new TreeNode(Integer.valueOf(arr[i]));
+            i++;
+            if(i>=arr.length) break;
+            TreeNode right =  arr[i].equals("null")?null:new TreeNode(Integer.valueOf(arr[i]));
+            if(curr!=null) {
+                curr.left = left;
+                curr.right = right;
+                if(left!=null) que.offer(left);
+                if(right!=null) que.offer(right);
+            }
         }
-
-        System.out.println(split.get(0));
-        TreeNode root = new TreeNode(Integer.valueOf(split.get(0).toString()));
-        split.remove(0);
-        root.left = rdfs(split);
-        root.right = rdfs(split);
-
-        return root;
-
+        return head;
     }
-
 
 }
