@@ -20,7 +20,6 @@ public class StringPermutationTest {
 
         Assert.assertNull(stringPermutation.permutation(""));
 
-        arr = stringPermutation.permutation("aab");
-        Assert.assertEquals(3,arr.length);
+        Assert.assertEquals(3,stringPermutation.permutation("aab").length);
     }
 }
