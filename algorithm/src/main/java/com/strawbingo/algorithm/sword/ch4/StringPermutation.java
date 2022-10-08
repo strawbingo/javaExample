@@ -39,7 +39,7 @@ public class StringPermutation {
         }
 
         for (int i = 0; i <visited.length ; i++) {
-            System.out.println(i+":"+perm.toString());
+//            System.out.println(i+":"+perm.toString());
             if(visited[i] || (i>0 && !visited[i-1]  && chars[i] ==chars[i-1] )) continue;
 
             perm.append(chars[i]+"");
