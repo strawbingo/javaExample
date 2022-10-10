@@ -15,62 +15,64 @@ public class MajorityElement {
     public int MajorityElementByPartition(int[] nums) {
         int target = nums.length /2;
 
-        sort(nums,target,0,nums.length-1);
+        sort(nums,0,nums.length-1,target);
 
         return nums[target];
     }
 
-    private int sort(int[] nums,int target,int start, int end){
+    private void sort(int[] nums, int begin, int end, int target) {
+        System.out.println(target+":"+begin+":"+end);
+        int right = partion(nums, begin, end);
 
-        int index = partion(nums,start,end);
-        if(index< target){
-            return sort(nums,target, index+1, end);
-        }
-        else if(index > target){
-            return sort(nums,target, start, index - 1);
-        }
-        else {
-            return index;
+        if(right == target){
+            return;
+        }else if(target < right){
+            sort(nums,begin,right-1,target);
+        }else {
+            sort(nums,right+1,end,target);
         }
     }
 
-    private int partion(int[] nums,int start, int end) {
-        int temp = nums[start];
-
-        while (start < end){
-            while (start<end && temp <= nums[end] ) end--;
-            nums[start] = nums[end];
-            while (start<end && nums[start] <= temp) start++;
-            nums[end] = nums[start];
+    private int partion(int[] nums, int begin, int end) {
+        int midNum = nums[begin];
+        int left = begin, right = end;
+        while (left<right){
+            while (left< right && nums[right]>midNum){
+                right --;
+            }
+            while(left<right && nums[left]<=midNum){
+                left++;
+            }
+            swap(nums,left,right);
+            System.out.println(left+":"+right);
         }
-
-        nums[start] = temp;
-
-        return start;
+        swap(nums,begin,right);
+        return right;
     }
 
+    private void swap(int[] nums, int left, int right) {
+        int tmp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = tmp;
+    }
 
 
     /**
      * 解法二：根据数组特点找出时间复杂度为O(n)的算法
      */
     public int MajorityElement(int[] nums) {
-        int res = 0;
-        int times = 0;
-        for(int i=0; i< nums.length; i++){
-            if(times == 0){
-                res = nums[i];
-                times++;
-            }
-            else if(res == nums[i]){
+        int candidate = 0;
+        int times = 0 ;
+        for (int num: nums) {
+            if(times==0){
+                candidate=num;
                 times++;
             }
             else {
-                times--;
+                times += candidate==num? 1: -1;
             }
         }
-
-        return res;
+        return candidate;
     }
 
     /**

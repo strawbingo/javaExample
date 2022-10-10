@@ -20,7 +20,7 @@ public class MajorityElementTest {
         int[] nums = {1,2,3,2,2,4,5,2};
         int num = majorityElement.MajorityElementByPartition(nums);
         Assert.assertEquals(2,num);
-
+        System.out.println("-------------------");
         int[] nums2 = {1, 2, 3, 2, 2, 2, 5, 4, 2};
         num = majorityElement.MajorityElementByPartition(nums2);
         Assert.assertEquals(2,num);
