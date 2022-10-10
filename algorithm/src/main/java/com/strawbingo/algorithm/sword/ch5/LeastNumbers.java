@@ -29,30 +29,28 @@ public class LeastNumbers {
      * 解法二：时间复杂度为O(nlogk)的算法，特别适合处理海量数据
      */
     public int[] getLeastNumbersLargeNum(int[] arr, int k) {
-        if(k<=0) return new int[0];
+        int[] ans = new int[k];
+        if(k<=0) return ans;
 
-        PriorityQueue<Integer> priorityQueue = new PriorityQueue(k,new Comparator<Integer>() {
+        PriorityQueue<Integer> que = new PriorityQueue(k,new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 return o2.compareTo(o1);
             }
         });
+        for (int i = 0; i <k; i++) {
+            que.add(arr[i]);
+        }
 
-
-        for(int i=0; i< arr.length; i++){
-            if(priorityQueue.size() < k){
-                priorityQueue.add(arr[i]);
-            }
-            else {
-                if(arr[i]<priorityQueue.peek()){
-                    priorityQueue.poll();
-                    priorityQueue.add(arr[i]);
-                }
+        for (int i = k; i < arr.length; i++) {
+            if(arr[i]<que.peek()){
+                que.poll();
+                que.add(arr[k]);
             }
         }
 
-        int[] res = priorityQueue.stream().mapToInt(Integer::intValue).toArray();
-        return res;
+        ans = que.stream().mapToInt(Integer::intValue).toArray();
+        return ans;
     }
 
 
@@ -61,43 +59,53 @@ public class LeastNumbers {
      */
     public int[] getLeastNumbersByPartition(int[] arr, int target) {
 
-        int index =  getK(arr,target,0,arr.length-1);
-
-        int[] res = new int[target];
-
-        for(int i=0; i<target; i++){
-            res[i] = arr[i];
+        int[] ans = new int[target];
+        if(ans.length <= 0) return ans;
+        sort(arr,0,arr.length-1);
+        for(int i=0; i<target ;i++){
+            ans[i] = arr[i];
         }
-
-        return res;
+        return ans;
     }
 
-    private int getK(int[] arr, int target, int start, int end) {
-        if(start == end) return start;
+    void sort(int[] arr,int begin, int end){
+        //if begin >= end ,return
+//        System.out.println(begin+":be:"+end+":len:"+arr.length);
+        if(begin >= end || end>=arr.length){
+            return;
+        }
+//        System.out.println(begin+":be:conti:"+end);
+        //partion to 2 part
 
-       int index = partition(arr,start,end);
-       if(index == target){
-           return index;
-       }
-       else if(index > target) {
-           return getK(arr,target,start,index-1);
-       }
-       else {
-           return getK(arr, target, index+1, end);
-       }
+        int mid = partion(arr,begin,end);
+
+        //dfs
+        sort(arr,begin,mid-1);
+        sort(arr,mid+1, end);
     }
 
-    private int partition(int[] arr, int start, int end) {
-        int temp = arr[start];
-
-        while (start<end){
-            while (start<end && temp <= arr[end]) end--;
-            arr[start] = arr[end];
-            while (start<end && arr[start] <= temp) start++;
-            arr[end] = arr[start];
+    int partion(int[] arr,int begin, int end){
+//        System.out.println(begin+":"+end);
+        int midNum = arr[begin];
+        int i = begin, j = end;
+        while(i<j){
+            while(i<j && midNum < arr[j]){
+                j--;
+            }
+            while(i<j && midNum >= arr[i]){
+                i++;
+            }
+//            System.out.println(i+":"+j);
+            if(i<j){
+                int tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
+            }
         }
-
-        arr[start] = temp;
-        return start;
+//        System.out.println(Arrays.toString(arr)+"=mid="+j);
+        arr[begin] = arr[j];
+        arr[j] = midNum;
+//        System.out.println(Arrays.toString(arr)+"=mid="+j);
+        return i;
     }
 }
