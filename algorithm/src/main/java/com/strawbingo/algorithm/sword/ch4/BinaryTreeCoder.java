@@ -8,25 +8,25 @@ public class BinaryTreeCoder {
 
 
     public String serialize(TreeNode root) {
-        if(root == null) return null;
-
+        if(root == null) return "";
         StringBuilder sb = new StringBuilder();
-        Deque<TreeNode> que = new LinkedList();
-        que.push(root);
+        Queue<TreeNode> que = new LinkedList();
+        que.add(root);
 
-        //level traversal
         while(!que.isEmpty()){
-            TreeNode curr = que.pollFirst();
-            sb.append(curr==null?"null":curr.val).append(",");
-            if(curr != null){
-                que.offer(curr.left);
-                que.offer(curr.right);
+            TreeNode node = que.poll();
+            if(node == null){
+                sb.append("null,");
             }
-//            System.out.println("=========");
-//            que.stream().forEach(node -> System.out.println(node==null?null:node.val));
+            else {
+                sb.append(node.val).append(",");
+                que.add(node.left);
+                que.add(node.right);
+
+            }
         }
 
-        sb.deleteCharAt(sb.length()-1);
+        sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
@@ -49,31 +49,32 @@ public class BinaryTreeCoder {
     }
 
 
-    public TreeNode deserialize(String data) {
-        if(data == null || data.equals("")) return null;
+    public TreeNode deserialize(String s) {
+        if(s.isEmpty()) return null;
+        String[] split = s.split(",");
+        Queue<TreeNode> que = new LinkedList();
+        TreeNode root = new TreeNode(Integer.parseInt(split[0]));
+        que.add(root);
 
-        String[] arr = data.split(",");
-        TreeNode head = new TreeNode(Integer.valueOf(arr[0]));
-        Deque<TreeNode> que = new LinkedList();
-        que.push(head);
-        int i = 1;
-        while(!que.isEmpty()){
-//            System.out.println(i);
-            TreeNode curr = que.pollFirst();
+        List<String> temp = Arrays.asList(split);
+        List<String> valueList = new ArrayList(temp);
+        valueList.remove(0);
+        while (!valueList.isEmpty()){
+            TreeNode node = que.poll();
+            if(node == null) continue;
+//            System.out.println(valueList.size());
+            node.left = valueList.get(0).equals("null")?null:new TreeNode(Integer.parseInt(valueList.get(0)));
+            que.add(node.left);
+            valueList.remove(0);
 
-            if(!arr[i].equals("null")) {
-                curr.left= new TreeNode(Integer.valueOf(arr[i]));
-                que.offer(curr.left);
+            if(!valueList.isEmpty()){
+                node.right = valueList.get(0).equals("null")?null:new TreeNode(Integer.parseInt(valueList.get(0)));
+                que.add(node.right);
+                valueList.remove(0);
             }
-            i++;
 
-            if(!arr[i].equals("null")) {
-                curr.right = arr[i].equals("null") ? null : new TreeNode(Integer.valueOf(arr[i]));
-                que.offer(curr.right);
-            }
-            i++;
         }
-        return head;
+        return root;
     }
 
     StringBuilder sb;
@@ -84,45 +85,47 @@ public class BinaryTreeCoder {
      */
     public String serializeRecur(TreeNode root) {
         if(root == null) return null;
+
         sb = new StringBuilder();
-        sb.append(root==null?"null":root.val).append(",");
         dfs(root);
         sb.deleteCharAt(sb.length()-1);
         return sb.toString();
     }
 
     private void dfs(TreeNode root) {
+        if(root == null) {
+            sb.append("null,");
+        }
+        else {
+            sb.append(root.val).append(",");
+            dfs(root.left);
+            dfs(root.right);
+        }
 
-        sb.append(root.left==null?"null":root.left.val).append(",");
-        sb.append(root.right==null?"null":root.right.val).append(",");
-
-        if(root.left!=null) dfs(root.left);
-        if(root.right!=null) dfs(root.right);
     }
 
 
     int i =0 ;
     public TreeNode deserializeRecur(String s) {
-        if(s==null || s.length()==0) return  null;
+        if(s==null  || s.isEmpty()) return null;
         String[] split = s.split(",");
-        TreeNode head = new TreeNode(Integer.parseInt(split[0]));
-        i++;
-        dRecur(head,split);
-        return head;
+
+        TreeNode root = dRecur(split);
+        return root;
     }
 
-    private void dRecur(TreeNode curr, String[] split) {
-        if(curr==null) return;
+    private TreeNode dRecur( String[] split) {
+        if(i>=split.length || split[i].equals("null")) {
+            i++;
+            return null;
+        }
 
-        if(!split[i].equals("null")){
-            curr.left = new TreeNode(Integer.parseInt(split[i]));
-        }
+        TreeNode curr = split[i].equals("null")?null:new TreeNode(Integer.valueOf(split[i]));
         i++;
-        if(!split[i].equals("null")){
-            curr.right = new TreeNode(Integer.parseInt(split[i]));
-        }
-        i++;
-        dRecur(curr.left,split);
-        dRecur(curr.right,split);
+        curr.left =  dRecur(split);
+        curr.right =  dRecur(split);
+
+        return curr;
+
     }
 }
