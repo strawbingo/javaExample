@@ -11,54 +11,40 @@ import java.util.PriorityQueue;
  */
 public class MedianFinder {
 
-    PriorityQueue priorityQueueMin;
-    PriorityQueue priorityQueueMax;
+    PriorityQueue<Integer> priorityQueueMin;
+    PriorityQueue<Integer> priorityQueueMax;
 
     public MedianFinder(){
-        priorityQueueMin = new  PriorityQueue<Integer>((a, b) -> (b - a));
-        priorityQueueMax = new  PriorityQueue<Integer>((a, b) -> (a - b));
+        priorityQueueMin = new PriorityQueue<Integer>((a, b) -> (b - a));
+        priorityQueueMax = new PriorityQueue<Integer>();
     }
 
     public void addNum(int i) {
-        if(priorityQueueMin.size() == 0) {
+        if(priorityQueueMin.isEmpty()){
             priorityQueueMin.add(i);
             return;
         }
 
-        //add to min
-        if(priorityQueueMin.size() -1 < priorityQueueMax.size()){
-           if(i< Integer.valueOf(priorityQueueMax.peek().toString())){
-               priorityQueueMin.add(i);
-           }
-           else {
-               priorityQueueMin.add(priorityQueueMax.poll());
-               priorityQueueMax.add(i);
-           }
+        if(priorityQueueMin.size() == priorityQueueMax.size()){
+            priorityQueueMin.add(i);
         }
         else {
-            if(i> Integer.valueOf(priorityQueueMin.peek().toString())) {
-                priorityQueueMax.add(i);
-            }
-            else {
-                priorityQueueMax.add(priorityQueueMin.poll());
-                priorityQueueMin.add(i);
-            }
+            priorityQueueMax.add(i);
         }
-//        System.out.println("input:"+i);
-//        System.out.println(Arrays.toString(priorityQueueMin.toArray()));
-//        System.out.println(Arrays.toString(priorityQueueMax.toArray()));
 
+        if(priorityQueueMin.peek() > priorityQueueMax.peek()){
+            int tmp = priorityQueueMin.poll();
+            priorityQueueMin.add(priorityQueueMax.poll());
+            priorityQueueMax.add(tmp);
+        }
     }
 
-    public Double findMedian() {
-        if(priorityQueueMax.size() < priorityQueueMin.size()){
-            return Double.valueOf(priorityQueueMin.peek().toString());
+    public double findMedian() {
+        if(priorityQueueMin.size() > priorityQueueMax.size()){
+            return priorityQueueMin.peek();
         }
-        else if(priorityQueueMax.size() > priorityQueueMin.size()){
-            return Double.valueOf(priorityQueueMax.peek().toString());
-        }else {
-            return  (Double.valueOf(priorityQueueMin.peek().toString())+
-                    Double.valueOf(priorityQueueMax.peek().toString()))/2;
+        else {
+            return (priorityQueueMin.peek()+priorityQueueMax.peek())/2.0;
         }
     }
 
