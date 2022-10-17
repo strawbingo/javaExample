@@ -9,21 +9,20 @@ package com.strawbingo.algorithm.sword.ch5;
 public class MaxSubArray {
 
     public int maxSubArraySum(int[] nums) {
-//        if(nums.length == 1) return nums[0];
+        if(nums.length <=0) return 0;
 
-        int sum = 0;
-        int tempSum = 0;
-        for(int i=0; i<nums.length; i++){
-            tempSum = tempSum+nums[i];
+        int max = nums[0];
+        int tmp = max;
+        for(int i = 1; i< nums.length; i++){
+            if(tmp<0) tmp = 0;
 
-            if(i == 0 || tempSum>sum){
-                sum=tempSum;
+            tmp += nums[i];
+            if(tmp > max){
+                max = tmp;
             }
-
-            if(tempSum < 0 ) tempSum = 0;
         }
 
-        return  sum;
+        return max;
     }
 
     /**

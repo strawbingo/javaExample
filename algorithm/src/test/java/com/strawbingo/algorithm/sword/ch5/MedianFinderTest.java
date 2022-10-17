@@ -19,21 +19,21 @@ public class MedianFinderTest {
 //        medianFinder.addNum(6);
 //        medianFinder.addNum(4);
 //        medianFinder.addNum(8);
-        Assert.assertEquals(Double.valueOf(1.5) , medianFinder.findMedian());
+        Assert.assertEquals(1.5 , medianFinder.findMedian());
 
         medianFinder.addNum(3);
-        Assert.assertEquals(Double.valueOf(2), medianFinder.findMedian());
+        Assert.assertEquals(2, medianFinder.findMedian());
 
         medianFinder = new MedianFinder();
         medianFinder.addNum(-1);
-        Assert.assertEquals(Double.valueOf(-1),medianFinder.findMedian());
+        Assert.assertEquals(-1,medianFinder.findMedian());
         medianFinder.addNum(-2);
-        Assert.assertEquals(Double.valueOf(-1.5),medianFinder.findMedian());
+        Assert.assertEquals(-1.5,medianFinder.findMedian());
         medianFinder.addNum(-3);
-        Assert.assertEquals(Double.valueOf(-2),medianFinder.findMedian());
+        Assert.assertEquals(-2,medianFinder.findMedian());
 
         medianFinder.addNum(-4);
-        Assert.assertEquals(Double.valueOf(-2.5),medianFinder.findMedian());
+        Assert.assertEquals(-2.5,medianFinder.findMedian());
 
 
 
