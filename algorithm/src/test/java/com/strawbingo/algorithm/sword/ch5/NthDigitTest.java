@@ -13,15 +13,17 @@ public class NthDigitTest {
     @Test
     public void testFindNthDigit(){
         NthDigit nthDigit = new NthDigit();
-//        Assert.assertEquals(1,nthDigit.findNthDigit(10));
-//        Assert.assertEquals(0,nthDigit.findNthDigit(11));
-//        Assert.assertEquals(1,nthDigit.findNthDigit(12));
-//        Assert.assertEquals(1,nthDigit.findNthDigit(13));
-//        Assert.assertEquals(4,nthDigit.findNthDigit(19));
-//        Assert.assertEquals(5,nthDigit.findNthDigit(5));
-//        Assert.assertEquals(1,nthDigit.findNthDigit(190));
-//        Assert.assertEquals(7,nthDigit.findNthDigit(1863));
-        Assert.assertEquals(7,nthDigit.findNthDigit(1000000000));
+        Assert.assertEquals(1,nthDigit.findNthDigit(10));
+        Assert.assertEquals(0,nthDigit.findNthDigit(11));
+        Assert.assertEquals(1,nthDigit.findNthDigit(12));
+        Assert.assertEquals(1,nthDigit.findNthDigit(13));
+        Assert.assertEquals(4,nthDigit.findNthDigit(19));
+        Assert.assertEquals(5,nthDigit.findNthDigit(5));
+        Assert.assertEquals(9,nthDigit.findNthDigit(188));
+        Assert.assertEquals(9,nthDigit.findNthDigit(189));
+        Assert.assertEquals(1,nthDigit.findNthDigit(190));
+        Assert.assertEquals(7,nthDigit.findNthDigit(1863));
+        Assert.assertEquals(1,nthDigit.findNthDigit(1000000000));
     }
 
 }

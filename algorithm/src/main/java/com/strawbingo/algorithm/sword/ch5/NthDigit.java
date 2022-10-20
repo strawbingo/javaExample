@@ -8,36 +8,35 @@ package com.strawbingo.algorithm.sword.ch5;
  */
 public class NthDigit {
 
-    public int findNthDigit(int nth) {
-        int res = 0;
+    public int findNthDigit(int n) {
+        if(n < 10) return n;
 
-        int digits = 0;
-        long currSize = 0;
-
-        while(true){
-            digits++;
-            currSize += countNunSize(digits);
-            System.out.println(currSize);
-            if(currSize> nth) break;;
+        int d = 1;
+        int count = 9;
+        while ( (long)d* count < n ){
+            n -= d* count;
+            d++;
+            count *=10;
+//            System.out.println("n:"+n);
         }
 
 
-        if(digits == 1) return nth ;
+        int index = n - 1;
+        int start =(int) Math.pow(10,d-1) ;
+//        System.out.println("index:"+index);
+        int divNum = index / d;
+        int num = start + index / d;
+        int digitalIndex = index % d;
 
-        long count = currSize - countNunSize(digits);
-//        System.out.println("count:"+count);
-        long back = nth - count;
-//        System.out.println("back:"+back);
-        long i1 = back / digits;
-        long i2 = back % digits;
-//        System.out.println("digits:"+digits+" i1:"+i1+" i2:"+i2);
-        int start =  (int)Math.pow(10,digits-1);
-        long findNumber = start + i1;
-//        System.out.println("findNumber:"+findNumber);
+//        System.out.println("start:"+start+",divNum:"+divNum+",digitalIndex:"+digitalIndex);
+//        System.out.println("n:"+n+",final:"+num);
 
-        res = Integer.parseInt(String.valueOf(((findNumber)+"").charAt((int)i2)));
+//        int index = digitalIndex == 0? 0:digitalIndex;
+//        return Integer.valueOf(String.valueOf(num).substring(index-1,index));
 
-        return res;
+        int digit = (num / (int)(Math.pow(10, d - digitalIndex - 1))) % 10;
+        return  digit;
+
     }
 
     public  long countNunSize(int digits) {
