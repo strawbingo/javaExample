@@ -1,6 +1,8 @@
 package com.strawbingo.algorithm.sword.ch5;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -11,52 +13,47 @@ import java.util.Arrays;
 public class MinNumber {
 
     public String minNumber(int[] nums) {
-        int[] resNums = new int[nums.length];
-        //loop find min num
-        int loop = nums.length;
-        int sort=0;
-        while (loop > 0){
-            int chooseI = -1 ;
-            for (int i = 0; i < nums.length; i++) {
-                if(nums[i] < 0) continue;
-                if(chooseI <0 ) {
-                    chooseI = i;
-                    continue;
-                }
+        StringBuilder ans = new StringBuilder();
 
-                if(compareTwoNum(nums[chooseI], nums[i])){
-                    continue;
-                }
-                else {
-                    chooseI = i;
-                }
+        ArrayList<Integer> numList = new ArrayList<>();
+        for (int num:nums) {
+            numList.add(num);
+        }
+//        System.out.println("numList.size():"+numList.size());
+        while (!numList.isEmpty()){
+            int index = 0;
+            int minNum = numList.get(index);
+//            System.out.println("numList.size():"+numList.size());
 
+
+            for (int i = 1; i < numList.size(); i++) {
+                if(compare(minNum,numList.get(i))){
+                    minNum = numList.get(i);
+                    index = i;
+                }
             }
-            System.out.println("chooseI:"+chooseI);
-            System.out.println("nums[chooseI]:"+nums[chooseI]);
-            resNums[sort] = nums[chooseI];
-            nums[chooseI] = -1;
-            sort++;
-            loop--;
+
+            ans.append(minNum);
+            numList.remove(index);
         }
 
-        System.out.println(Arrays.toString(resNums));
-        //get res
-        String res= "";
-        for (int i = 0; i < resNums.length; i++) {
-            res += resNums[i];
-        }
-
-        return res;
+        return ans.toString();
     }
 
-    private boolean compareTwoNum(int x, int y) {
+    /**
+     * compare bit by bit
+     * @param minNum
+     * @param currNum
+     * @return
+     */
+    private boolean compare(int minNum, Integer currNum) {
 
-        if((x+""+y).compareTo(y+""+x) < 0){
-            return true;
-        }else{
-            return false;
-        }
+        long min = minNum * (long)(Math.pow(10,String.valueOf(currNum).length())) + currNum;
+        long curr = currNum * (long)(Math.pow(10,String.valueOf(minNum).length())) + minNum;
+
+        return min > curr;
+
     }
+
 
 }
