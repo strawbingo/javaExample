@@ -10,50 +10,74 @@ public class NumberTransToString {
 
 
     public int translateNum(int num) {
-        String str = String.valueOf(num);
-        int count = getTransNum(str);
-        return count;
-
+        String numString = String.valueOf(num);
+        int ans  = dp(numString);
+        return  ans;
     }
 
-    private int getTransNum(String str) {
-        if (str.length() ==1)  return 1;
-        if (str.substring(0,1).equals( "0")&&str.length()==2)  return 1;
+    private int dp(String numString) {
+//        System.out.println("numString:"+numString);
+        if(numString.length()==0){
+            return 1;
+        }
+        if(numString.length()== 1){
+            return 1;
+        }
+//        System.out.println(numString.substring(1,numString.length())+":"+Integer.valueOf(numString.substring(0,2)));
+        int n1= dp(numString.substring(1,numString.length())) ;
+        int n2 =  Integer.valueOf(numString.substring(0,2))>25||Integer.valueOf(numString.substring(0,2))<10?0:( dp(numString.substring(2,numString.length())));
+//        System.out.println(n1+":"+n2);
 
-//        System.out.println(str);
-        return getTransNum(str.substring(1))+
-                (str.length()>1?(Integer.parseInt(str.substring(0,2))>25||Integer.parseInt(str.substring(0,2))<10?0:
-                        str.length()==2?1:getTransNum(str.substring(2))
-                ):0);
-
+        return n1+n2;
     }
 
-    /**
-     * dp[i] = dp [i-1]
-     * @param num
-     * @return
-     */
+
     public int translateNumDP(int num) {
-        String numStr = String.valueOf(num);
-        char[] chars = numStr.toCharArray();
+        String s = String.valueOf(num);
+
+        char[] chars = s.toCharArray();
         int len = chars.length;
         int[] dp = new int[len];
         dp[0] = 1;
 
-        for (int i = 1; i < len; i++) {
+        for (int i = 1; i < len ; i++) {
             dp[i] = dp[i-1];
-            int cur = (chars[i-1]-'0') * 10 + chars[i]-'0';
-            if(cur > 9 && cur < 26){
-                if(i <= 1){
+            int currNum = (chars[i-1]-'0')*10+(chars[i]-'0');
+            if(currNum >=10 && currNum<=25){
+                if(i<2){
                     dp[i]++;
-                }else {
+                }
+                else {
                     dp[i] += dp[i - 2];
                 }
             }
+
         }
 
         return dp[len-1];
-
     }
 
+    public int translateNumDP2(int num) {
+        String s = String.valueOf(num);
+        char[] chars = s.toCharArray();
+        int len = chars.length;
+        int p=0,q=0,r=1;
+
+        for (int i = 0; i < len; i++) {
+            p = q;
+            q = r;
+
+            if(i==0){
+                continue;
+            }
+
+            int currNum = (chars[i-1]-'0') *10 + (chars[i]-'0') ;
+            if(currNum > 9 && currNum < 26){
+                r += p;
+            }
+
+        }
+
+        return r;
+    }
 }
