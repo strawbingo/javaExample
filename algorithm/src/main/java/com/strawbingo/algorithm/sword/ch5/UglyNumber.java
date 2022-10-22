@@ -1,7 +1,5 @@
 package com.strawbingo.algorithm.sword.ch5;
 
-import java.util.Arrays;
-
 /**
  * 题49：丑数
  * 我们把只包含因子2、3和5数称作丑数（Ugly Number）。
@@ -11,26 +9,25 @@ import java.util.Arrays;
 public class UglyNumber {
 
     public int nthUglyNumber(int n) {
-        int[] p = new int[n+1];
-        p[1] = 1;
-        int p2 = 1, p3=1, p5 =1;
-        for (int i = 2; i <= n; i++) {
-            int tmp = Math.min(p[p2]*2,Math.min(p[p3]*3,p[p5]*5));
-//            System.out.println(p2+":"+p3+":"+p5);
-            if(tmp == p[p2]*2){
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        int p2=1,p3=1,p5=1;
+        for(int i = 2; i<=n; i ++){
+            int num2 = dp[p2] * 2, num3 = dp[p3] * 3, num5 = dp[p5] * 5;
+            dp[i] = Math.min(Math.min(num2, num3), num5);
+
+
+            if(num2 ==  dp[i]){
                 p2++;
             }
-            if(tmp == p[p3]*3){
+            if(num3 ==  dp[i]){
                 p3++;
             }
-            if(tmp == p[p5]*5){
+            if(num5 ==  dp[i]){
                 p5++;
             }
-            p[i] = tmp;
         }
-
-//        System.out.println(Arrays.toString(p));
-        return p[n];
+        return dp[n];
 
     }
 

@@ -14,8 +14,8 @@ public class UglyNumberTest {
     @Test
     public void tetNthUglyNumber(){
         UglyNumber uglyNumber = new UglyNumber();
-//        Assert.assertEquals(12,uglyNumber.nthUglyNumber(10));
-//        Assert.assertEquals(1,uglyNumber.nthUglyNumber(1));
+        Assert.assertEquals(1,uglyNumber.nthUglyNumber(1));
+        Assert.assertEquals(12,uglyNumber.nthUglyNumber(10));
         Assert.assertEquals(15,uglyNumber.nthUglyNumber(11));
 
     }
