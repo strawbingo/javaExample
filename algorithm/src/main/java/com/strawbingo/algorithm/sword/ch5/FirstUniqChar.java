@@ -2,6 +2,7 @@ package com.strawbingo.algorithm.sword.ch5;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -14,18 +15,18 @@ public class FirstUniqChar {
      * 在字符串中找出第一个只出现一次的字符。如输入“abaccdeff”，则输出’b‘
      */
     public char firstUniqCharInString(String s) {
-        HashMap<Character, Integer>  sMap = new HashMap<>();
-        char[] chars = s.toCharArray();
-        for (Character c:
-                chars ) {
-                sMap.put(c,sMap.getOrDefault(c,0)+1);
+        if(s==null || s.length() == 0) return ' ';
+        Map<Character,Integer> sMap = new HashMap();
+        int len = s.length();
+
+        for(int i=0; i <len; i++){
+            char tmp  = s.charAt(i);
+            sMap.put(tmp,sMap.containsKey(tmp)?sMap.get(tmp)+1:1);
+
         }
 
-        for (Character c:
-             chars) {
-            if(sMap.get(c) == 1){
-                return c;
-            }
+        for(int i=0; i <len; i++){
+            if(sMap.get( s.charAt(i))==1) return  s.charAt(i);
         }
 
         return ' ';
@@ -35,18 +36,27 @@ public class FirstUniqChar {
     private Queue<Character>  queue = new LinkedList<>();
 
     public void addCharcter(char c) {
-        sMap.put(c,sMap.getOrDefault(c,0)+1);
+       sMap.put(c,sMap.getOrDefault(c,0)+1);
 
-        if(sMap.get(c)==1) {
-            queue.add(c);
-        }
-        if(sMap.get(queue.peek())>1){
-            queue.poll();
-        }
+       if(sMap.get(c) == 1){
+           queue.add(c);
+       }
     }
 
+    /**
+     * 题目二：字符流中第一个只出现一次的字符
+     *
+     * @return
+     */
     public char firstUniqCharInStream() {
-        if(queue.isEmpty()) return ' ';
-        return queue.peek();
+        while (!queue.isEmpty()){
+            if(sMap.get(queue.peek())>1){
+                queue.poll();
+            }else {
+                return queue.peek();
+            }
+        }
+
+        return ' ';
     }
 }

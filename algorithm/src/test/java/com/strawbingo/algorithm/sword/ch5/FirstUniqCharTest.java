@@ -44,6 +44,16 @@ public class FirstUniqCharTest {
         firstUniqChar.addCharcter('a');
         firstUniqChar.addCharcter('a');
         Assert.assertEquals(' ',firstUniqChar.firstUniqCharInStream());
+
+        firstUniqChar = new FirstUniqChar();
+        firstUniqChar.addCharcter('g');
+        firstUniqChar.addCharcter('o');
+        Assert.assertEquals('g',firstUniqChar.firstUniqCharInStream());
+        firstUniqChar.addCharcter('o');
+        firstUniqChar.addCharcter('g');
+        firstUniqChar.addCharcter('l');
+        firstUniqChar.addCharcter('e');
+        Assert.assertEquals('l',firstUniqChar.firstUniqCharInStream());
     }
 
 }
