@@ -1,6 +1,6 @@
 package com.strawbingo.algorithm.sword.ch5;
 
-import java.util.Arrays;
+
 
 /**
  * 题51：数组中的逆序对
@@ -12,63 +12,60 @@ public class ArraysReversePairs {
 
 
     public int reversePairs(int[] nums) {
-        if(nums.length<2) return 0;
-
-        int[] source = new int[nums.length];
-        for (int i = 0; i < nums.length ; i++) {
-            source[i] = nums[i];
+        if(nums.length<2){
+            return 0;
         }
 
-        int[] temp = new int[nums.length];
+        int[] sorted = new int[nums.length];
 
-        return reversePairs(source,0,nums.length-1,temp);
+        int ans = sort(nums,sorted,0,nums.length-1);
+        return ans;
     }
 
-    private int reversePairs(int[] nums, int left, int right, int[] temp) {
-        if(left == right) return 0;
-
-        int mid = left + (right - left)/2;
-        int resLeft = reversePairs(nums,left,mid,temp);
-        int refRight = reversePairs(nums,mid+1,right,temp);
-
-        //优化
-        if(nums[mid] <= nums[mid+1]){
-            return resLeft+refRight;
+    //sort numbers
+    private int sort(int[] nums, int[] sorted, int left, int right) {
+//        System.out.println("sort=left="+left+":right="+right);
+        if(left == right){
+            return 0;
         }
+        int mid = left + (right-left)/2;
+        int leftPairs = sort(nums,sorted,left,mid);
+        int rightPairs = sort(nums,sorted,mid+1,right);
+        
+        int count = merge(nums,sorted,left,mid,right);
 
-        int res = resLeft + refRight + mergeArray(nums,left,mid,right,temp);
-
-        return res;
+        return leftPairs+rightPairs +count;
     }
 
-    private int mergeArray(int[] nums, int left, int mid, int right, int[] temp) {
-        int res = 0;
-        for (int i = left; i < right+1; i++) {
-            temp[i] = nums[i];
-        }
-
-//        System.out.println("new merge: left=" + left + ":right=" + right+":nums" + Arrays.toString(nums));
-
-        int i = left, j = mid + 1;
+    private int merge(int[] nums,int[] sorted, int left, int mid,int right) {
+        int i = left, j = mid+1;
+//        System.out.println(i+":"+j);
+        int count = 0;
         for (int index = left; index <= right; index++) {
-//            System.out.println("i="+i + ":j=" + j + ":index=" + index);
-            if (i == mid + 1) {
-                nums[index] = temp[j];
-                j++;
-            } else if (j == right + 1) {
-                nums[index] = temp[i];
-                i++;
-            } else if (temp[i] <= temp[j]) {
-                nums[index] = temp[i];
-                i++;
-            } else {
-                nums[index] = temp[j];
-                j++;
-                res += mid - i + 1;
+            if(i>mid){
+                sorted[index] = nums[j];
+                j ++;
             }
+            else if(j>right){
+                sorted[index] = nums[i];
+                i++;
+            }else if(nums[i]<=nums[j]){
+                sorted[index] = nums[i];
+                i++;
+            }else if( nums[j]<nums[i]){
+                count += mid - i +1;
+                sorted[index] = nums[j];
+                j ++;
+            }
+
         }
-//        System.out.println("res=" + res + ":nums" + Arrays.toString(nums));
-        return res;
+
+        for (int index = left; index <= right; index++) {
+            nums[index] = sorted[index];
+        }
+
+        return count;
     }
+
 
 }
