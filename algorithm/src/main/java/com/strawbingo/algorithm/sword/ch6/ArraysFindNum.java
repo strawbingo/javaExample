@@ -13,69 +13,62 @@ public class ArraysFindNum {
     public int searchCounts(int[] nums, int target) {
         if(nums.length == 0) return 0;
 
-        int count = 0;
-        int left = searchLeft(nums,target,0,nums.length-1);
-        int right= searchRight(nums,target,0,nums.length-1);
-        if(left >= 0){
-            count = right - left +1;
-        }
+        int left = findLeft(nums,target,0,nums.length-1);
+        if(left == -1) return 0;
 
-//        System.out.println(left+":"+right);
-        return count;
+        int right = findRight(nums,target,left,nums.length-1);
+
+//        System.out.println("final="+left+":"+right);
+        return right>=left ? right - left +1 : 0;
     }
 
-    private int searchLeft(int[] nums, int target, int left, int right) {
-        if(left==right) {
-            if(nums[left]== target){
-                return left;
-            }
-            else {
-                return -1;
-            }
-        }
+    private int findLeft(int[] nums, int target, int left, int right) {
+//        System.out.println("findLeft="+left+":"+right);
 
-        int mid = left + (right-left)/2;
-        if(nums[mid] == target) {
-            if(mid ==0 || nums[mid-1] !=target){
-                return mid;
+        while (left < right){
+            int mid = left +(right-left)/2;
+//            System.out.println("in while="+left+":"+right);
+            if(nums[mid] < target){
+                // mide+1 .. right
+                left = mid+1;
+            }else{
+                // left .. mid
+                right = mid ;
             }
-            else {
-                return searchLeft(nums,target,left,mid);
-            }
+//            else {
+//                // nums[mid] > target
+//                //left .. mid -1;
+//                right = mid -1;
+//            }
         }
-        else if(nums[mid] > target ) {
-           return searchLeft(nums,target,left,mid);
-        }
-        else {
-           return searchLeft(nums,target,mid+1,right);
-        }
+        if(nums[left] == target) return left;
+
+        return -1;
     }
 
-    private int searchRight(int[] nums, int target, int left, int right) {
-        if(left==right) {
-            if (nums[left] == target) {
-                return left;
-            } else {
-                return -1;
+    private int findRight(int[] nums, int target, int left, int right) {
+//        System.out.println("findRight="+left+":"+right);
+
+        while (left < right){
+            int mid = left +(right-left+1)/2;
+            if(nums[mid] <= target){
+                // mid .. right
+                left = mid;
+//            }else if(nums[mid] == target){
+//                // mid .. right
+//                left = mid ;
+            }else {
+                // nums[mid] > target
+                //left .. mid -1;
+                right = mid -1;
             }
         }
 
-        int mid = left + (right-left)/2;
-        if(nums[mid] == target) {
-            if(nums[mid+1] !=target) {
-                return mid;
-            }
-            else {
-                return searchRight(nums,target,mid+1,right);
-            }
-        }
-        else if(nums[mid] > target ) {
-            return searchRight(nums,target,left,mid);
-        }
-        else {
-            return searchRight(nums,target,mid+1,right);
-        }
+
+        return left;
+
     }
+
 
     /**
      * 题目二：0~n-1中缺失的数字

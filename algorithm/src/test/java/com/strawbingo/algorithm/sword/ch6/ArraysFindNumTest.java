@@ -20,13 +20,21 @@ public class ArraysFindNumTest {
         Assert.assertEquals(4,arraysFindNum.searchCounts(nums,3));
         Assert.assertEquals(0,arraysFindNum.searchCounts(nums,8));
 
+        System.out.println("========================");
         int[] nums2 = {5,7,7,8,8,10};
         Assert.assertEquals(2,arraysFindNum.searchCounts(nums2,8));
         Assert.assertEquals(0,arraysFindNum.searchCounts(nums2,6));
 
+        System.out.println("========================");
         int[] nums3 = {2,2};
         Assert.assertEquals(2,arraysFindNum.searchCounts(nums3,2));
         Assert.assertEquals(0,arraysFindNum.searchCounts(nums3,6));
+        System.out.println("===========find 1=============");
+        Assert.assertEquals(0,arraysFindNum.searchCounts(nums3,1));
+
+        System.out.println("========================");
+        int[] nums4 = {1};
+        Assert.assertEquals(1,arraysFindNum.searchCounts(nums4,1));
 
     }
 
@@ -34,6 +42,8 @@ public class ArraysFindNumTest {
      * 题目二：0~n-1中缺失的数字
      * 一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0~n-1之内。
      * 在范围0~n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字
+     *
+     * https://leetcode.cn/problems/que-shi-de-shu-zi-lcof/
      */
     @Test
     public void testMissingNumber(){
